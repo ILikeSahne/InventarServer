@@ -1,4 +1,2 @@
-# BulmeInventarServer
-Bulme Inventar App - Server
-
-Nestler
+# InventarServer
+InventarApp - Server
