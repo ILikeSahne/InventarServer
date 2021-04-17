@@ -1,0 +1,13 @@
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.exe
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.deps.json
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.runtimeconfig.json
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.runtimeconfig.dev.json
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.dll
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.pdb
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.csprojAssemblyReference.cache
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.AssemblyInfoInputs.cache
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.AssemblyInfo.cs
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.csproj.CoreCompileInputs.cache
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.dll
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.pdb
+E:\Schule\Diplom\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.genruntimeconfig.cache
