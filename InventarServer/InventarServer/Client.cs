@@ -14,7 +14,7 @@ namespace InventarServer
 
         private Thread clientThread;
 
-        private RSA encryptRSA, decryptRSA;
+        private RSAHelper rsaHelper;
 
         /// <summary>
         /// Saves values
@@ -48,7 +48,9 @@ namespace InventarServer
 
         public void SetupEncryption()
         {
-            
+            rsaHelper = new RSAHelper(stream);
+            RSAError e = rsaHelper.SetupServer();
+            Console.WriteLine(e);
         }
 
         /// <summary>
