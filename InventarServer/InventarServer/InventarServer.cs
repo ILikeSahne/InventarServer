@@ -4,7 +4,7 @@ namespace InventarServer
 {
     class InventarServer
     {
-        private const string domain = "ilikesahne.ddns.net";
+        private const string domain = "192.168.178.56";
         private const int port = 10001;
 
         private static Server server;
@@ -16,7 +16,6 @@ namespace InventarServer
         public static void Main(string[] _args)
         {
             StartServer();
-            Console.ReadKey(); // Prevent Program from stopping
         }
 
         /// <summary>
@@ -33,6 +32,7 @@ namespace InventarServer
             } else {
                 WriteLine("Server started on domain(adress): {0}, on port: {1}", domain, port);
             }
+            server.StartServerRoutine();
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+using System.Threading;
 
 namespace InventarServer
 {
@@ -11,6 +12,9 @@ namespace InventarServer
         private TcpListener server;
         private string domain;
         private int port;
+
+        private Thread serverThread;
+        private List<Client> clients;
 
         /// <summary>
         /// Saves values
@@ -41,12 +45,44 @@ namespace InventarServer
             try
             {
                 server = new TcpListener(addr, port);
+                server.Start();
                 return new ServerError(ServerErrorType.NO_ERROR, null);
             }
-            catch(ArgumentOutOfRangeException e)
+            catch(Exception e)
             {
                 return new ServerError(ServerErrorType.SETUP_ERROR, e);
             }
+        }
+
+        /// <summary>
+        /// Starts the Server Routine - the Server accepts Client connections
+        /// </summary>
+        public void StartServerRoutine()
+        {
+            clients = new List<Client>();
+            serverThread = new Thread(ServerRoutine);
+            serverThread.Start();
+        }
+
+        /// <summary>
+        /// Accepts new Clients, until the Server is stopped
+        /// </summary>
+        private void ServerRoutine()
+        {
+            while (serverThread.IsAlive)
+            {
+                InventarServer.WriteLine("Waiting for Client...");
+                TcpClient client = server.AcceptTcpClient();
+                clients.Add(new Client(client));
+            }
+        }
+
+        /// <summary>
+        /// Stops the Server Routine - the Server stops accepts Client connections
+        /// </summary>
+        public void StopServerRoutine()
+        {
+            serverThread.Abort();
         }
     }
 
