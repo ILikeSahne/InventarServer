@@ -50,7 +50,9 @@ namespace InventarServer
         {
             rsaHelper = new RSAHelper(stream);
             RSAError e = rsaHelper.SetupServer();
-            Console.WriteLine(e);
+            ASCIIEncoding en = new ASCIIEncoding();
+            string message = en.GetString(rsaHelper.ReadByteArray());
+            Console.WriteLine(message);
         }
 
         /// <summary>

@@ -34,11 +34,6 @@ namespace InventarServer
             PublicKey = publicKey;
         }
 
-        public void setPublicKey(string publicKey)
-        {
-            rsa.FromXmlString(publicKey);
-        }
-
         /// <summary>
         /// Uses public Key to encrypt the Data
         /// </summary>
@@ -46,7 +41,6 @@ namespace InventarServer
         /// <returns></returns>
         public byte[] Encrypt(byte[] _data)
         {
-            //MAX Data: 47
             using (RSACryptoServiceProvider newRsa = new RSACryptoServiceProvider())
             {
                 newRsa.ImportParameters(rsa.ExportParameters(false));
@@ -61,7 +55,6 @@ namespace InventarServer
         /// <returns></returns>
         public byte[] Decrypt(byte[] _data)
         {
-            Console.WriteLine(_data.Length);
             using (RSACryptoServiceProvider newRsa = new RSACryptoServiceProvider())
             {
                 newRsa.ImportParameters(rsa.ExportParameters(true));
