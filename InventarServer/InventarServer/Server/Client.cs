@@ -46,6 +46,9 @@ namespace InventarServer
             SetupEncryption();
         }
 
+        /// <summary>
+        /// Setup RSA communication
+        /// </summary>
         public void SetupEncryption()
         {
             rsaHelper = new RSAHelper(stream);

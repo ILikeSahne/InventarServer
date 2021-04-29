@@ -4,6 +4,8 @@ using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.IO;
+using System.Diagnostics;
 
 namespace InventarServer
 {
@@ -30,7 +32,7 @@ namespace InventarServer
         /// <summary>
         /// Starts the Server
         /// </summary>
-        /// <returns>Is true if there was no Error, if there is one it returns the Error and the Exception</returns>
+        /// <returns>Returns an Error if the Server can't be started</returns>
         public ServerError StartServer()
         {
             IPAddress addr;
@@ -113,7 +115,12 @@ namespace InventarServer
         /// </summary>
         public void PrintError()
         {
-            InventarServer.WriteLine(ToString());
+            InventarServer.WriteLine("ServerError: {0}", ToString());
+            StackFrame stackFrame = new StackFrame(1, true);
+            string filename = stackFrame.GetFileName();
+            int line = stackFrame.GetFileLineNumber();
+            string method = stackFrame.GetMethod().ToString();
+            Console.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
         }
 
         /// <summary>
