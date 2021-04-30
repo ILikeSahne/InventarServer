@@ -42,7 +42,7 @@ namespace InventarServer
             try {
                 string json = File.ReadAllText(ConfigFile);
                 List<DatabaseLocation> Locations = JsonSerializer.Deserialize<List<DatabaseLocation>>(json);
-                foreach(DatabaseLocation dl in Locations)
+                foreach (DatabaseLocation dl in Locations)
                 {
                     Database d = new Database(dl);
                     DatabaseError e = d.LoadDatabase();
@@ -226,7 +226,7 @@ namespace InventarServer
             string filename = stackFrame.GetFileName();
             int line = stackFrame.GetFileLineNumber();
             string method = stackFrame.GetMethod().ToString();
-            Console.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
+            InventarServer.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
         }
 
         /// <summary>

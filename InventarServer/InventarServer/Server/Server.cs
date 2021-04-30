@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace InventarServer
 {
-    class Server
+    class IServer
     {
         private TcpListener server;
         private string domain;
@@ -23,7 +23,7 @@ namespace InventarServer
         /// </summary>
         /// <param name="_domain">Domain of the Server, can also be an IP-Adress</param>
         /// <param name="_port">Port of the Server</param>
-        public Server(string _domain, int _port)
+        public IServer(string _domain, int _port)
         {
             domain = _domain;
             port = _port;
@@ -120,7 +120,7 @@ namespace InventarServer
             string filename = stackFrame.GetFileName();
             int line = stackFrame.GetFileLineNumber();
             string method = stackFrame.GetMethod().ToString();
-            Console.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
+            InventarServer.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
         }
 
         /// <summary>

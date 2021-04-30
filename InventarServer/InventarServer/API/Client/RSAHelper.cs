@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 
-namespace InventarServer
+namespace InventarAPI
 {
     class RSAHelper
     {
@@ -152,9 +152,9 @@ namespace InventarServer
         /// <param name="_data">Bytes to send</param>
         private void WriteEncryptedBytes(byte[] _data)
         {
-            if (_data.Length > MAX_LENGTH)
+            if(_data.Length > MAX_LENGTH)
             {
-                InventarServer.WriteLine("Error: too many bytes send at once, amount: {0} bytes", _data.Length);
+                InventarAPI.WriteLine("Error: too many bytes send at once, amount: {0} bytes", _data.Length);
                 return;
             }
             WriteBytes(encryptRSA.Encrypt(_data));
@@ -185,7 +185,7 @@ namespace InventarServer
             };
             WriteEncryptedBytes(lenBytes);
             int amount = len / MAX_LENGTH + 1;
-            for (int i = 0; i < amount; i++)
+            for(int i = 0; i < amount; i++)
             {
                 int pos = i * MAX_LENGTH;
                 int newDataLenght = Math.Min(MAX_LENGTH, len - pos);

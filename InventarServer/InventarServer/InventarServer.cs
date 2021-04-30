@@ -4,13 +4,14 @@ namespace InventarServer
 {
     class InventarServer
     {
-        private const string domain = "192.168.178.56";
+        private const string domain = "localhost"; //"192.168.178.56"
         private const int port = 10001;
 
         private static string configPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace('\\', '/') + "/InventarServer/";
 
         private static DatabaseManager database;
-        private static Server server;
+        private static IServer server;
+        private static CommandManager cmdManager;
 
         /// <summary>
         /// Main()
@@ -19,6 +20,7 @@ namespace InventarServer
         public static void Main(string[] _args)
         {
             LoadDatabases();
+            cmdManager = new CommandManager();
             StartServer();
             DatabaseTest dt = new DatabaseTest();
             dt.CreateTestDatabase();
@@ -57,7 +59,7 @@ namespace InventarServer
         /// </summary>
         private static void StartServer()
         {
-            server = new Server(domain, port);
+            server = new IServer(domain, port);
             ServerError e = server.StartServer();
             if (!e)
             {
@@ -75,6 +77,11 @@ namespace InventarServer
         public static DatabaseManager GetDatabase()
         {
             return database;
+        }
+
+        public static CommandManager GetCommandManager()
+        {
+            return cmdManager;
         }
 
         /// <summary>

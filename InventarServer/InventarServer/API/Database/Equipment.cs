@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 
-namespace InventarServer
+namespace InventarAPI
 {
     class Equipment
     {
@@ -62,28 +62,7 @@ namespace InventarServer
             Room = _room;
             RoomName = _roomName;
         }
-
-        /// <summary>
-        /// Saves the Equipment to its File
-        /// </summary>
-        /// <param name="_path">Path of the equipments Folder</param>
-        /// <returns></returns>
-        public DatabaseError SaveToFile(string _path)
-        {
-            string name = _path + ID + ".json";
-            InventarServer.WriteLine("Saving File: {0}", name);
-            try
-            {
-                string json = JsonSerializer.Serialize(this);
-                File.WriteAllText(name, json);
-            }
-            catch (Exception e)
-            {
-                return new DatabaseError(DatabaseErrorType.EQUIPMENT_FILE_UNSAVEABLE, e);
-            }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
-        }
-
+          
         public byte[] ToByteArray()
         {
             ASCIIEncoding an = new ASCIIEncoding();

@@ -78,6 +78,7 @@ namespace InventarServer
             {
                 string json = File.ReadAllText(_f);
                 Equipment e = JsonSerializer.Deserialize<Equipment>(json);
+                InventarServer.WriteLine("Loading Equipment: \n{0}", e);
                 equipments.Add(e);
             }
             catch (Exception e)
