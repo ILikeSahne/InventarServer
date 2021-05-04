@@ -13,7 +13,7 @@ namespace InventarServer
 
         public AddDatabaseCommand() : this("", "", "", "") { }
 
-        public AddDatabaseCommand(string _databaseName, string _user, string _pw, string _folder) : base(CommandType.ADD_DATABASE, 30, 30)
+        public AddDatabaseCommand(string _databaseName, string _user, string _pw, string _folder) : base(30, 30)
         {
             DatabaseName = _databaseName;
             User = _user;
@@ -21,24 +21,7 @@ namespace InventarServer
             Folder = _folder;
         }
 
-        public override CommandError SendCommandData(RSAHelper _helper)
-        {
-            try
-            {
-                ASCIIEncoding an = new ASCIIEncoding();
-                _helper.WriteByteArray(an.GetBytes(DatabaseName));
-                _helper.WriteByteArray(an.GetBytes(User));
-                _helper.WriteByteArray(an.GetBytes(PW));
-                _helper.WriteByteArray(an.GetBytes(Folder));
-            }
-            catch (Exception e)
-            {
-                return new CommandError(CommandErrorType.EQUIPMENT_DATA_CORRUPTED, e);
-            }
-            return new CommandError(CommandErrorType.NO_ERROR, null);
-        }
-
-        public override CommandError HandleCommandData(RSAHelper _helper)
+        public override Error HandleCommandData(RSAHelper _helper)
         {
             try
             {
@@ -51,43 +34,31 @@ namespace InventarServer
             }
             catch (Exception e)
             {
-                return new CommandError(CommandErrorType.EQUIPMENT_DATA_CORRUPTED, e);
+                return new Error(ErrorType.COMMAND_ERROR, CommandErrorType.EQUIPMENT_DATA_CORRUPTED, e);
             }
-            return new CommandError(CommandErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
-        public override CommandError SendCommandResponse(RSAHelper _helper)
+        public override void SendCommandResponse(RSAHelper _helper)
         {
-            byte[] data = { ResponseToID(ValidateEquipment().ToString()) };
+            byte[] data = { ResponseToID(ValidateDatabase().ToString()) };
             _helper.WriteByteArray(data);
-            return new CommandError(CommandErrorType.NO_ERROR, null);
         }
 
-        private EquipmentCommandError ValidateEquipment()
+        private AddDatabaseCommandError ValidateDatabase()
         {
-            return EquipmentCommandError.NO_ERROR;
+            return AddDatabaseCommandError.NO_ERROR;
         }
 
         public override string[] GetResponses()
         {
-            return Enum.GetNames(typeof(EquipmentCommandError));
+            return Enum.GetNames(typeof(AddDatabaseCommandError));
         }
     }
 
     enum AddDatabaseCommandError
-    { 
+    {
         NO_ERROR,
-        INVALID_NUMBER_ERROR,
-        INVALID_SECOND_NUMBER_ERROR,
-        INVALID_CURRENT_NUMBER_ERROR,
-        INVALID_ACTIVATION_DATE_ERROR,
-        INVALID_NAME_ERROR,
-        INVALID_SERIAL_NUMBER_ERROR,
-        INVALID_COST_ERROR,
-        INVALID_BOOK_VALUE_ERROR,
-        INVALID_CURRENCY_ERROR,
-        INVALID_KFZ_LICENSE_PLATE_ERROR,
-        INVALID_ROOM_ERROR,
-        INVALID_ROOM_NAME_ERROR
+        INVALID_NAME
     }
 }

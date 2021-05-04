@@ -35,38 +35,38 @@ namespace InventarServer
         /// Loads all Databases stored in the Config-File
         /// </summary>
         /// <returns>Returns an Error if it can't load the Config</returns>
-        public DatabaseError LoadDatabases()
+        public Error LoadDatabases()
         {
             if (!File.Exists(ConfigFile))
-                return new DatabaseError(DatabaseErrorType.CONFIG_FILE_NOT_FOUND, null);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.CONFIG_FILE_NOT_FOUND);
             try {
                 string json = File.ReadAllText(ConfigFile);
                 List<DatabaseLocation> Locations = JsonSerializer.Deserialize<List<DatabaseLocation>>(json);
                 foreach (DatabaseLocation dl in Locations)
                 {
                     Database d = new Database(dl);
-                    DatabaseError e = d.LoadDatabase();
+                    Error e = d.LoadDatabase();
                     InventarServer.WriteLine("Loading Database: {0}", dl.Name);
                     if (!e)
                     {
                         InventarServer.WriteLine("CRITICAL ERROR: ");
-                        e.PrintError();
+                        e.PrintAllErrors();
                     } else
                         databases.Add(d);
                 }
             }
             catch (Exception e)
             {
-                return new DatabaseError(DatabaseErrorType.DATABASE_CORRUPTED, e);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.DATABASE_CORRUPTED, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
         /// Saves the Config-File
         /// </summary>
         /// <returns>Returns an Error if it can't save the Config</returns>
-        public DatabaseError SaveConfig()
+        public Error SaveConfig()
         {
             try
             {
@@ -81,9 +81,9 @@ namespace InventarServer
             }
             catch (Exception e)
             {
-                return new DatabaseError(DatabaseErrorType.CONFIG_FILE_UNSAVEABLE, e);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.CONFIG_FILE_UNSAVEABLE, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
@@ -91,21 +91,21 @@ namespace InventarServer
         /// </summary>
         /// <param name="_d">Database to add</param>
         /// <returns>Returns an Error if the Database is not valid or the Config is unsaveable</returns>
-        public DatabaseError AddDatabase(Database _d)
+        public Error AddDatabase(Database _d)
         {
             InventarServer.WriteLine("Adding new Database, with name: \"{0}\"", _d.Loc.Name);
-            DatabaseError de = ValidateDatabase(_d);
-            if (!de)
-                return de;
+            Error e = ValidateDatabase(_d);
+            if (!e)
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.DATABASE_CORRUPTED, e);
             databases.Add(_d);
             _d.CreateDatabase();
-            de = SaveConfig();
-            if (!de)
-                return de;
-            de = _d.LoadDatabase();
-            if (!de)
-                return de;
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            e = SaveConfig();
+            if (!e)
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.CONFIG_FILE_UNSAVEABLE);
+            e = _d.LoadDatabase();
+            if (!e)
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.DATABASE_UNLOAD_ABLE, e);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
@@ -128,35 +128,35 @@ namespace InventarServer
         /// </summary>
         /// <param name="_d">Database to validate</param>
         /// <returns>Returns an Error if the Database is not valid</returns>
-        private DatabaseError ValidateDatabase(Database _d)
+        private Error ValidateDatabase(Database _d)
         {
             foreach(Database d in databases)
             {
                 if (d.Loc.Name.Equals(_d.Loc.Name))
-                    return new DatabaseError(DatabaseErrorType.DATABASE_ALREADY_EXISTS, null);
+                    return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.DATABASE_ALREADY_EXISTS);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
         /// Creates a new Config
         /// </summary>
         /// <returns>Returns an Error if it can't create a new Config</returns>
-        public DatabaseError CreateNewConfig()
+        public Error CreateNewConfig()
         {
             try
             {
                 Directory.CreateDirectory(ConfigFolder);
                 File.Create(ConfigFile).Close();
-                DatabaseError e = SaveConfig();
+                Error e = SaveConfig();
                 if (!e)
-                    return e;
+                    return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.CONFIG_FILE_UNSAVEABLE, e);
             }
             catch (Exception e)
             {
-                return new DatabaseError(DatabaseErrorType.CONFIG_FILE_UNCREATEABLE, e);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.CONFIG_FILE_UNCREATEABLE, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
     }
 
@@ -194,64 +194,6 @@ namespace InventarServer
         }
     }
 
-    class DatabaseError
-    {
-        /// <summary>
-        /// Type of Error
-        /// </summary>
-        public DatabaseErrorType Type { get; }
-        /// <summary>
-        /// Thrown Exception
-        /// </summary>
-        public Exception Exception { get; }
-
-        /// <summary>
-        /// Saves values
-        /// </summary>
-        /// <param name="_type">Type of Error</param>
-        /// <param name="_e">Thrown Exception</param>
-        public DatabaseError(DatabaseErrorType _type, Exception _e)
-        {
-            Type = _type;
-            Exception = _e;
-        }
-
-        /// <summary>
-        /// Writes the Error to the Console (only when in DEBUG mode)
-        /// </summary>
-        public void PrintError()
-        {
-            InventarServer.WriteLine("DatabaseError: {0}", ToString());
-            StackFrame stackFrame = new StackFrame(1, true);
-            string filename = stackFrame.GetFileName();
-            int line = stackFrame.GetFileLineNumber();
-            string method = stackFrame.GetMethod().ToString();
-            InventarServer.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
-        }
-
-        /// <summary>
-        /// Returns the Error as a String:
-        ///     "TypeOfError: ExceptionMessage"
-        /// </summary>
-        /// <returns>"TypeOfError: ExceptionMessage"</returns>
-        public override string ToString()
-        {
-            if (Exception != null)
-                return Type + ": " + Exception.Message;
-            else
-                return Type.ToString();
-        }
-
-        /// <summary>
-        /// Returns true if there was no Error, otherwise it returns false
-        /// </summary>
-        /// <param name="e">DatabaseError</param>
-        public static implicit operator bool(DatabaseError e)
-        {
-            return e.Type == DatabaseErrorType.NO_ERROR;
-        }
-    }
-
     enum DatabaseErrorType
     {
         NO_ERROR,
@@ -262,8 +204,11 @@ namespace InventarServer
         DATABASE_FILES_UNCREATEABLE,
         DATABASE_CORRUPTED,
         DATABASE_ALREADY_EXISTS,
+        DATABASE_UNLOAD_ABLE,
         EQUIPMENT_FOLDER_NOT_FOUND,
         EQUIPMENT_FILE_CORRUPTED,
-        EQUIPMENT_FILE_UNSAVEABLE
+        EQUIPMENT_FILE_UNSAVEABLE,
+        EQUIPMENT_FILE_UNLOADABLE,
+        EQUIPMENT_CORRUPTED
     }
 }

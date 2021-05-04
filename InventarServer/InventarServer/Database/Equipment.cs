@@ -68,7 +68,7 @@ namespace InventarServer
         /// </summary>
         /// <param name="_path">Path of the equipments Folder</param>
         /// <returns></returns>
-        public DatabaseError SaveToFile(string _path)
+        public Error SaveToFile(string _path)
         {
             string name = _path + ID + ".json";
             InventarServer.WriteLine("Saving File: {0}", name);
@@ -79,9 +79,9 @@ namespace InventarServer
             }
             catch (Exception e)
             {
-                return new DatabaseError(DatabaseErrorType.EQUIPMENT_FILE_UNSAVEABLE, e);
+                return new Error(ErrorType.EQUIPMENT_ERROR, DatabaseErrorType.EQUIPMENT_FILE_UNSAVEABLE, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         public byte[] ToByteArray()

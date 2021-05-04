@@ -43,18 +43,18 @@ namespace InventarServer
         /// </summary>
         public void ClientRoutine()
         {
-            RSAError e = SetupEncryption();
-            if(e != RSAError.NO_ERROR)
+            Error e = SetupEncryption();
+            if(!e)
             {
                 InventarServer.WriteLine("Couldn't setup RSA communication!");
                 Close();
                 return;
             }
             byte[] data = rsaHelper.ReadByteArray();
-            CommandError cmdError = InventarServer.GetCommandManager().ExecuteCommand(data, rsaHelper);
+            Error cmdError = InventarServer.GetCommandManager().ExecuteCommand(data, rsaHelper);
             if (!cmdError)
             {
-                cmdError.PrintError();
+                cmdError.PrintAllErrors();
             }
             Close();
         }
@@ -62,15 +62,15 @@ namespace InventarServer
         /// <summary>
         /// Setup RSA communication
         /// </summary>
-        public RSAError SetupEncryption()
+        public Error SetupEncryption()
         {
             rsaHelper = new RSAHelper(stream);
-            RSAError e = rsaHelper.SetupServer();
-            if(e != RSAError.NO_ERROR)
+            Error e = rsaHelper.SetupServer();
+            if(!e)
             {
-                return e;
+                return new Error(ErrorType.CLIENT_ERROR, RSAError.CONNECTION_ERROR, e);
             }
-            return e;
+            return Error.NO_ERROR;
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace InventarServer
 
         public AddEquipmentCommand() : this("", "", "", null) { }
 
-        public AddEquipmentCommand(string _databaseName, string _user, string _pw, Equipment _e) : base(CommandType.ADD_EQUIPMENT, 10, 10)
+        public AddEquipmentCommand(string _databaseName, string _user, string _pw, Equipment _e) : base(10, 10)
         {
             DatabaseName = _databaseName;
             User = _user;
@@ -21,24 +21,7 @@ namespace InventarServer
             Equipment = _e;
         }
 
-        public override CommandError SendCommandData(RSAHelper _helper)
-        {
-            try
-            {
-                ASCIIEncoding an = new ASCIIEncoding();
-                _helper.WriteByteArray(an.GetBytes(DatabaseName));
-                _helper.WriteByteArray(an.GetBytes(User));
-                _helper.WriteByteArray(an.GetBytes(PW));
-                _helper.WriteByteArray(Equipment.ToByteArray());
-            }
-            catch (Exception e)
-            {
-                return new CommandError(CommandErrorType.EQUIPMENT_DATA_CORRUPTED, e);
-            }
-            return new CommandError(CommandErrorType.NO_ERROR, null);
-        }
-
-        public override CommandError HandleCommandData(RSAHelper _helper)
+        public override Error HandleCommandData(RSAHelper _helper)
         {
             try
             {
@@ -47,20 +30,25 @@ namespace InventarServer
                 User = an.GetString(_helper.ReadByteArray());
                 PW = an.GetString(_helper.ReadByteArray());
                 Equipment = new Equipment().FromByteArray(_helper.ReadByteArray());
-                InventarServer.GetDatabase().GetDatabase(DatabaseName).AddEquipment(Equipment);
+                Database d = InventarServer.GetDatabase().GetDatabase(DatabaseName);
+                if(d == null)
+                {
+                    return new Error(ErrorType.COMMAND_ERROR, EquipmentCommandError.DATABASE_DOESNT_EXIST);
+                }
+                d.AddEquipment(Equipment);
             }
             catch (Exception e)
             {
-                return new CommandError(CommandErrorType.EQUIPMENT_DATA_CORRUPTED, e);
+                return new Error(ErrorType.COMMAND_ERROR, EquipmentCommandError.UNKNOWN_ERROR, e);
             }
-            return new CommandError(CommandErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
-        public override CommandError SendCommandResponse(RSAHelper _helper)
+        public override void SendCommandResponse(RSAHelper _helper)
         {
-            byte[] data = { ResponseToID(ValidateEquipment().ToString()) };
+            int id = ResponseToID(ValidateEquipment().ToString());
+            byte[] data = { (byte) (id & 0xFF), (byte) ((id >> 8) & 0xFF) };
             _helper.WriteByteArray(data);
-            return new CommandError(CommandErrorType.NO_ERROR, null);
         }
 
         private EquipmentCommandError ValidateEquipment()
@@ -77,6 +65,8 @@ namespace InventarServer
     enum EquipmentCommandError
     { 
         NO_ERROR,
+        DATABASE_DOESNT_EXIST,
+        UNKNOWN_ERROR,
         INVALID_NUMBER_ERROR,
         INVALID_SECOND_NUMBER_ERROR,
         INVALID_CURRENT_NUMBER_ERROR,

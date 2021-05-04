@@ -28,7 +28,7 @@ namespace InventarServer
         /// Setup Server side RSA communication
         /// </summary>
         /// <returns>Returns a RSAError if the Header was wrong</returns>
-        public RSAError SetupServer()
+        public Error SetupServer()
         {
             try
             {
@@ -55,21 +55,21 @@ namespace InventarServer
                 for (int i = 0; i < response.Length; i++)
                 {
                     if (response[i] != data[i] * 4)
-                        return RSAError.RESPONSE_ERROR;
+                        return new Error(ErrorType.RSA_ERROR, RSAError.RESPONSE_ERROR);
                 }
             }
             catch (Exception e)
             {
-                return RSAError.CONNECTION_ERROR;
+                return new Error(ErrorType.RSA_ERROR, RSAError.CONNECTION_ERROR, e);
             }
-            return RSAError.NO_ERROR;
+            return Error.NO_ERROR;
         }
 
         /// <summary>
         /// Setup Client side RSA communication
         /// </summary>
         /// <returns>Returns a RSAError if the Header was wrong</returns>
-        public RSAError SetupClient()
+        public Error SetupClient()
         {
             try
             {
@@ -90,7 +90,7 @@ namespace InventarServer
                 for (int i = 0; i < response.Length; i++)
                 {
                     if (response[i] != i * 4)
-                        return RSAError.RESPONSE_ERROR;
+                        return new Error(ErrorType.RSA_ERROR, RSAError.RESPONSE_ERROR);
                     response[i] *= 4;
                 }
                 //Write response
@@ -98,9 +98,9 @@ namespace InventarServer
             }
             catch (Exception e)
             {
-                return RSAError.CONNECTION_ERROR;
+                return new Error(ErrorType.RSA_ERROR, RSAError.CONNECTION_ERROR, e);
             }
-            return RSAError.NO_ERROR;
+            return Error.NO_ERROR;
         }
 
         /// <summary>

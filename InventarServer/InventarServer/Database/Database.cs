@@ -34,7 +34,7 @@ namespace InventarServer
         /// Creates the Folders for the Database
         /// </summary>
         /// <returns>Returns an Error if it can't create the Folders</returns>
-        public DatabaseError CreateDatabase()
+        public Error CreateDatabase()
         {
             try
             {
@@ -43,28 +43,28 @@ namespace InventarServer
             }
             catch (Exception e)
             {
-                return new DatabaseError(DatabaseErrorType.DATABASE_FOLDER_NOT_FOUND, e);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.DATABASE_FOLDER_NOT_FOUND, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
         /// Loads the Database-Content from its Folder
         /// </summary>
         /// <returns>Returns an Error if it can't load the Database</returns>
-        public DatabaseError LoadDatabase()
+        public Error LoadDatabase()
         {
             if(!Directory.Exists(Loc.Folder))
-                return new DatabaseError(DatabaseErrorType.DATABASE_FOLDER_NOT_FOUND, null);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.DATABASE_FOLDER_NOT_FOUND);
             if (!Directory.Exists(equipmentFolder))
-                return new DatabaseError(DatabaseErrorType.EQUIPMENT_FOLDER_NOT_FOUND, null);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.EQUIPMENT_FOLDER_NOT_FOUND);
             foreach (string f in Directory.GetFiles(equipmentFolder))
             {
-                DatabaseError e = LoadFile(f);
+                Error e = LoadFile(f);
                 if (!e)
-                    return e;
+                    return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.EQUIPMENT_FILE_UNLOADABLE, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace InventarServer
         /// </summary>
         /// <param name="_f">File-Path to load</param>
         /// <returns>Returns an Error if it can't load a File of the Database</returns>
-        private DatabaseError LoadFile(string _f)
+        private Error LoadFile(string _f)
         {
             try
             {
@@ -83,26 +83,30 @@ namespace InventarServer
             }
             catch (Exception e)
             {
-                return new DatabaseError(DatabaseErrorType.EQUIPMENT_FILE_CORRUPTED, e);
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.EQUIPMENT_FILE_CORRUPTED, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
         /// Saves all Files for the Database
         /// </summary>
         /// <returns>Returns an Error if it can't save a File</returns>
-        public DatabaseError SaveDatabase()
+        public Error SaveDatabase()
         {
-            InventarServer.GetDatabase().SaveConfig();
+            Error e = InventarServer.GetDatabase().SaveConfig();
+            if(!e)
+            {
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.CONFIG_FILE_UNSAVEABLE, e);
+            }
             InventarServer.WriteLine("Saving Database: \"{0}\"", Loc.Name);
             foreach(Equipment eq in equipments)
             {
-                DatabaseError e = eq.SaveToFile(equipmentFolder);
+                e = eq.SaveToFile(equipmentFolder);
                 if (!e)
-                    return e;
+                    return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.EQUIPMENT_FILE_UNSAVEABLE, e);
             }
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
@@ -110,16 +114,16 @@ namespace InventarServer
         /// </summary>
         /// <param name="e">Equipment to save</param>
         /// <returns>Returns an Error if the Equipment is not valid</returns>
-        public DatabaseError AddEquipment(Equipment _e)
+        public Error AddEquipment(Equipment _e)
         {
             _e.ID = Loc.IDCounter++;
             InventarServer.WriteLine("Adding Equipment to Database \"{0}\", Data: \n{1}", Loc.Name, _e.ToString());
-            DatabaseError de = ValidateEquipment(_e);
-            if(!de)
-                return de;
+            Error e = ValidateEquipment(_e);
+            if (!e)
+                return new Error(ErrorType.DATABASE_ERROR, DatabaseErrorType.EQUIPMENT_CORRUPTED, e);
             equipments.Add(_e);
             SaveDatabase();
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
         /// <summary>
@@ -127,9 +131,9 @@ namespace InventarServer
         /// </summary>
         /// <param name="e">Equipment to validate</param>
         /// <returns>Returns an Error if the Equipment is not valid</returns>
-        private DatabaseError ValidateEquipment(Equipment _e)
+        private Error ValidateEquipment(Equipment _e)
         {
-            return new DatabaseError(DatabaseErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
     }
 }

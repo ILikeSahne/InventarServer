@@ -16,7 +16,7 @@ namespace InventarServer
             commands.Add(new AddEquipmentCommand());
         }
 
-        public CommandError ExecuteCommand(byte[] _data, RSAHelper _helper)
+        public Error ExecuteCommand(byte[] _data, RSAHelper _helper)
         {
             foreach(Command c in commands)
             {
@@ -25,19 +25,17 @@ namespace InventarServer
                     return c.HandleCommand(_helper);
                 }
             }
-            return new CommandError(CommandErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
     }
 
     class Command
     {
-        public CommandType Type { get; set; }
         public byte Number { get; set; }
         public byte Number2 { get; set; }
 
-        public Command(CommandType _type, byte _number, byte _number2)
+        public Command(byte _number, byte _number2)
         {
-            Type = _type;
             Number = _number;
             Number2 = _number2;
         }
@@ -47,76 +45,32 @@ namespace InventarServer
             return _data[0] == Number && _data[1] == Number2;
         }
 
-        public CommandError SendCommand(RSAHelper _helper)
+        public Error HandleCommand(RSAHelper _helper)
         {
-            CommandError e = SendCommandType(_helper);
+            Error e = HandleCommandData(_helper);
             if (!e)
             {
-                return e;
+                return new Error(ErrorType.COMMAND_ERROR, CommandErrorType.COMMAND_DATA_ERROR, e);
             }
-            e = SendCommandData(_helper);
-            if (!e)
-            {
-                return e;
-            }
-            byte[] data = _helper.ReadByteArray();
-            e = HandleResponse(data[0]);
-            if (!e)
-            {
-                return e;
-            }
-            return new CommandError(CommandErrorType.NO_ERROR, null);
+            SendCommandResponse(_helper);
+            return Error.NO_ERROR;
         }
 
-        public CommandError HandleCommand(RSAHelper _helper)
+        public virtual Error SendCommandData(RSAHelper _helper)
         {
-            CommandError e = HandleCommandData(_helper);
-            if (!e)
-            {
-                return e;
-            }
-            e = SendCommandResponse(_helper);
-            if (!e)
-            {
-                return e;
-            }
-
-            return new CommandError(CommandErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
-        public CommandError SendCommandType(RSAHelper _helper)
+        public virtual Error HandleCommandData(RSAHelper _helper)
         {
-            byte[] _data = { Number, Number2 };
-            _helper.WriteByteArray(_data);
-            return new CommandError(CommandErrorType.NO_ERROR, null);
+            return Error.NO_ERROR;
         }
 
-        public virtual CommandError SendCommandData(RSAHelper _helper)
+        public virtual void SendCommandResponse(RSAHelper _helper)
         {
-            return new CommandError(CommandErrorType.NO_ERROR, null);
-        }
-
-        public virtual CommandError HandleCommandData(RSAHelper _helper)
-        {
-            return new CommandError(CommandErrorType.NO_ERROR, null);
-        }
-
-        public virtual CommandError SendCommandResponse(RSAHelper _helper)
-        {
-            byte[] data = { 0 };
+            byte[] data = { 0, 0 };
+            Console.WriteLine(data.Length);
             _helper.WriteByteArray(data);
-            return new CommandError(CommandErrorType.NO_ERROR, null);
-        }
-
-        public CommandError HandleResponse(int _id)
-        {
-            string[] responses = GetResponses();
-            for (int i = 0; i < responses.Length; i++)
-            {
-                if (_id == i)
-                    return new CommandError(CommandErrorType.COMMAND_FAILED, new Exception(responses[i]));
-            }
-            return new CommandError(CommandErrorType.UNKNOWN_RESPONSE, null);
         }
 
         public byte ResponseToID(string _response)
@@ -138,76 +92,11 @@ namespace InventarServer
         }
     }
 
-    enum CommandType
-    {
-        ADD_DATABASE,
-        ADD_EQUIPMENT
-    }
-
-    class CommandError
-    {
-        /// <summary>
-        /// Type of Error
-        /// </summary>
-        public CommandErrorType Type { get; }
-        /// <summary>
-        /// Thrown Exception
-        /// </summary>
-        public Exception Exception { get; }
-
-        /// <summary>
-        /// Saves values
-        /// </summary>
-        /// <param name="_type">Type of Error</param>
-        /// <param name="_e">Thrown Exception</param>
-        public CommandError(CommandErrorType _type, Exception _e)
-        {
-            Type = _type;
-            Exception = _e;
-        }
-
-        /// <summary>
-        /// Writes the Error to the Console (only when in DEBUG mode)
-        /// </summary>
-        public void PrintError()
-        {
-            InventarServer.WriteLine("CommandError: " + ToString());
-            StackFrame stackFrame = new StackFrame(1, true);
-            string filename = stackFrame.GetFileName();
-            int line = stackFrame.GetFileLineNumber();
-            string method = stackFrame.GetMethod().ToString();
-            InventarServer.WriteLine("{0}:{1}, {2}", Path.GetFileName(filename), line, method);
-        }
-
-        /// <summary>
-        /// Returns the Error as a String:
-        ///     "TypeOfError: ExceptionMessage"
-        /// </summary>
-        /// <returns>"TypeOfError: ExceptionMessage"</returns>
-        public override string ToString()
-        {
-            if (Exception != null)
-                return Type + ": " + Exception.Message;
-            else
-                return Type.ToString();
-        }
-
-        /// <summary>
-        /// Returns true if there was no Error, otherwise it returns false
-        /// </summary>
-        /// <param name="e">ServerError</param>
-        public static implicit operator bool(CommandError e)
-        {
-            return e.Type == CommandErrorType.NO_ERROR;
-        }
-    }
-
     enum CommandErrorType
     {
         NO_ERROR,
-        SYNTAX_ERROR,
         COMMAND_NOT_FOUND,
-        COMMAND_FAILED,
+        COMMAND_DATA_ERROR,
         UNKNOWN_RESPONSE,
         EQUIPMENT_DATA_CORRUPTED
     }

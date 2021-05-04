@@ -33,25 +33,36 @@ namespace InventarServer
         {
             WriteLine("Loading Databases...");
             database = new DatabaseManager(configPath);
-            DatabaseError e = database.LoadDatabases();
+            Error e = database.LoadDatabases();
             if (!e)
             {
-                e.PrintError();
-                if(e.Type == DatabaseErrorType.CONFIG_FILE_NOT_FOUND)
-                {
-                    WriteLine("Creating new Config-File at: \"{0}\"", configPath);
-                    e = database.CreateNewConfig();
-                    if (!e)
-                    {
-                        e.PrintError();
-                        WriteLine("Couldn't create Config!");
-                    }
-                    else
-                        WriteLine("Restart the program to try again!");
-                }
+                e.PrintAllErrors();
+                if (e.Message.Equals(DatabaseErrorType.CONFIG_FILE_NOT_FOUND.ToString()))
+                    CreateConfig();
                 Environment.Exit(0);
             }
             WriteLine("Databases finished loading!");
+        }
+
+        /// <summary>
+        /// Creates a new Config
+        /// </summary>
+        private static void CreateConfig()
+        {
+            WriteLine("Creating new Config-File at: \"{0}\"", configPath);
+            WriteLine("Create new Config [y, n]?");
+            string s = Console.ReadLine().ToLower();
+            if (s[0] == 'y')
+            {
+                Error e = database.CreateNewConfig();
+                if (!e)
+                {
+                    e.PrintAllErrors();
+                    WriteLine("Couldn't create Config!");
+                }
+                else
+                    WriteLine("Restart the program to try again!");
+            }
         }
 
         /// <summary>
@@ -60,10 +71,10 @@ namespace InventarServer
         private static void StartServer()
         {
             server = new IServer(domain, port);
-            ServerError e = server.StartServer();
+            Error e = server.StartServer();
             if (!e)
             {
-                e.PrintError();
+                e.PrintAllErrors();
                 Environment.Exit(0);
             }
             WriteLine("Server started on domain(adress): {0}, on port: {1}", domain, port);
@@ -91,9 +102,9 @@ namespace InventarServer
         /// <param name="_args">Objects to place in {} placeholders</param>
         public static void WriteLine(string _s, params object[] _args)
         {
-            #if DEBUG
-                Console.WriteLine(_s, _args);
-            #endif
+#if DEBUG
+            Console.WriteLine(_s, _args);
+#endif
         }
 
     }
