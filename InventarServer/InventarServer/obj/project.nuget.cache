@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "ShSkaYW+x1ozj+yKlKdLwTAayF57z9c+aPYTA3wUnSaWp0hnDZvfrGNy/cg/fCDj0m3js7j6XaWL7pp3LKIYjg==",
+  "success": true,
+  "projectFilePath": "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.bson\\2.13.0\\mongodb.bson.2.13.0.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.driver\\2.13.0\\mongodb.driver.2.13.0.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.driver.core\\2.13.0\\mongodb.driver.core.2.13.0.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.libmongocrypt\\1.2.1\\mongodb.libmongocrypt.1.2.1.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\sharpcompress\\0.23.0\\sharpcompress.0.23.0.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512"
+  ],
+  "logs": []
+}
