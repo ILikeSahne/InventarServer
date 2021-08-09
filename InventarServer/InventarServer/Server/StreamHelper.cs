@@ -17,24 +17,34 @@ namespace InventarServer
             ascii = new ASCIIEncoding();
         }
 
+        public void SendByteArray(byte[] _bytes)
+        {
+            Helper.WriteByteArray(_bytes);
+        }
+
+        public byte[] ReadByteArray()
+        {
+            return Helper.ReadByteArray();
+        }
+
         public void SendString(string _s)
         {
-            Helper.WriteByteArray(ascii.GetBytes(_s));
+            SendByteArray(ascii.GetBytes(_s));
         }
 
         public string ReadString()
         {
-            return ascii.GetString(Helper.ReadByteArray());
+            return ascii.GetString(ReadByteArray());
         }
 
         public void SendInt(int _x)
         {
-            Helper.WriteByteArray(BitConverter.GetBytes(_x));
+            SendByteArray(BitConverter.GetBytes(_x));
         }
 
         public int ReadInt()
         {
-            return BitConverter.ToInt32(Helper.ReadByteArray(), 0);
+            return BitConverter.ToInt32(ReadByteArray(), 0);
         }
     }
 }
