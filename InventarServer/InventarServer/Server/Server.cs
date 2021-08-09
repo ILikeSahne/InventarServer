@@ -12,6 +12,8 @@ namespace InventarServer
         private TcpListener server;
         private Thread serverThread;
 
+        private CommandManager cmdManager;
+
         public Server(string _domain, int _port)
         {
             StartServer(_domain, _port);
@@ -24,6 +26,7 @@ namespace InventarServer
 
         private void StartServer(string _domain, int _port)
         {
+            cmdManager = new CommandManager();
             IPAddress addr = Dns.GetHostAddresses(_domain)[0];
             server = new TcpListener(addr, _port);
             server.Start();
@@ -36,7 +39,7 @@ namespace InventarServer
             while (serverThread.IsAlive)
             {
                 WriteLine("Waiting for Client...");
-                new Client(server.AcceptTcpClient());
+                new Client(server.AcceptTcpClient(), cmdManager);
             }
         }
 

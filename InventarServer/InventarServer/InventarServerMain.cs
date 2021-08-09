@@ -5,13 +5,25 @@ namespace InventarServer
 {
     class InventarServerMain
     {
-        private static Server server;
-        private static MongoClient mongodb;
+        public static InventarServerMain Instance { get; set; }
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            mongodb = new MongoClient("mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb");
-            //server = new Server(10000);
+            Instance = new InventarServerMain();
+        }
+
+        public static MongoClient GetMongoDB()
+        {
+            return Instance.MongoDB;
+        }
+
+        public Server Server { get; }
+        public MongoClient MongoDB { get; }
+
+        public InventarServerMain()
+        {
+            MongoDB = new MongoClient("mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb");
+            Server = new Server(10000);
         }
     }
 }
