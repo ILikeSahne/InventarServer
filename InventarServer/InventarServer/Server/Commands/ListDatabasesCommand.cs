@@ -13,17 +13,7 @@ namespace InventarServer
 
         public override void Execute(StreamHelper _helper, Client _c)
         {
-            List<string> databases = new List<string>();
-            using (var cursor = InventarServerMain.GetMongoDB().ListDatabases())
-            {
-                while (cursor.MoveNext())
-                {
-                    foreach (var db in cursor.Current)
-                    {
-                        databases.Add(db["name"].ToString());
-                    }
-                }
-            }
+            List<string> databases = new DatabaseHelper().ListDatabases();
             _helper.SendInt(databases.Count);
             foreach(string name in databases)
             {
