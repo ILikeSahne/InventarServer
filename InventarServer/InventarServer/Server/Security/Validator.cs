@@ -11,12 +11,26 @@ namespace InventarServer
         public Validator()
         { }
 
+        /// <summary>
+        /// Validates a Password
+        /// Requirements:
+        ///     2-20 chars
+        ///     Only upper + lower chars, numbers and _
+        ///     Isn't allowed to start with _
+        /// </summary>
+        /// <param name="_username">The Username to validate</param>
+        /// <returns>True if the Username is valid</returns>
         public bool ValidateUsername(string _username)
         {
             Regex r = new Regex("^(?=.{2,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
             return r.IsMatch(_username);
         }
 
+        /// <summary>
+        /// Validates an Email
+        /// </summary>
+        /// <param name="_email">The Email to validate</param>
+        /// <returns>True if the Email is valid</returns>
         public bool ValidateEmail(string _email)
         {
             try
@@ -30,6 +44,17 @@ namespace InventarServer
             return true;
         }
 
+        /// <summary>
+        /// Validates a Password
+        /// Requirements:
+        ///     Has Numbers
+        ///     Has Lower Chars
+        ///     Has Upper Chars
+        ///     Has at least 6 Chars and at most 20 chars
+        ///     Has at least on of those Symbols: !@#$%^&*()_+=\[{\]};:<>|./?,-
+        /// </summary>
+        /// <param name="_password">The Password to validate</param>
+        /// <returns>True if the Password is valid</returns>
         public bool ValidatePassword(string _password)
         {
             var input = _password;
@@ -39,7 +64,7 @@ namespace InventarServer
 
             var hasNumber = new Regex(@"[0-9]+");
             var hasUpperChar = new Regex(@"[A-Z]+");
-            var hasMiniMaxChars = new Regex(@".{8,15}");
+            var hasMiniMaxChars = new Regex(@".{6,20}");
             var hasLowerChar = new Regex(@"[a-z]+");
             var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 

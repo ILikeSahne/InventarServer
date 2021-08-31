@@ -74,7 +74,7 @@ namespace InventarServer
             return collection;
         }
 
-        public bool UserExists()
+        public BsonDocument GetUser()
         {
             var users = GetCollection("users");
 
@@ -82,14 +82,12 @@ namespace InventarServer
             filter |= Builders<BsonDocument>.Filter.Eq("email", Name);
 
             var user = users.Find(filter).FirstOrDefault();
-            if (user != null)
-                return true;
-            return false;
+            return user;
         }
 
         public bool AddUser(string _email)
         {
-            if (UserExists())
+            if (GetUser() != null)
                 return false;
             var collection = GetCollection("users");
             User user = new User(_email, Name, Password);
@@ -97,21 +95,19 @@ namespace InventarServer
             return true;
         }
 
-        public bool Login()
+        public LoginError Login()
         {
-            if (!UserExists())
-                return false;
-            var userCollection = GetCollection("users");
+            var user = GetUser();
 
-            var filter = Builders<BsonDocument>.Filter.Eq("username", Name);
-            filter |= Builders<BsonDocument>.Filter.Eq("email", Name);
+            if (user == null)
+                return LoginError.USER_NOT_FOUND;
 
-            var user = userCollection.Find(filter).FirstOrDefault();
-            
             string generatedHash = user.GetValue("password").ToString();
             string hash = Hash();
 
-            return hash.Equals(generatedHash);
+            if (!hash.Equals(generatedHash))
+                return LoginError.WRONG_PASSWORD;
+            return LoginError.NONE;
         }
 
         public List<string> ListDatabases()
@@ -130,5 +126,10 @@ namespace InventarServer
             return databases;
         }
 
+    }
+
+    enum LoginError
+    {
+        NONE, USER_NOT_FOUND, WRONG_PASSWORD
     }
 }

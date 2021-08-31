@@ -14,9 +14,10 @@ namespace InventarServer
 
         public override void Execute(StreamHelper _helper, Client _c)
         {
-            if(!AdminLogin(_helper))
+            LoginError error = AdminLogin(_helper);
+            if (error != LoginError.NONE)
             {
-                _helper.SendString("Wrong Admin Password");
+                _helper.SendString(error.ToString());
                 _c.Close();
                 return;
             }
@@ -24,7 +25,7 @@ namespace InventarServer
             CreateDatabase(_helper);
         }
 
-        public bool AdminLogin(StreamHelper _helper)
+        public LoginError AdminLogin(StreamHelper _helper)
         {
             string adminUsername = _helper.ReadString();
             string adminPassword = _helper.ReadString();

@@ -4,7 +4,6 @@ E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServ
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.runtimeconfig.dev.json
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.dll
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\InventarServer.pdb
-E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.csprojAssemblyReference.cache
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.AssemblyInfoInputs.cache
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.AssemblyInfo.cs
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.csproj.CoreCompileInputs.cache
@@ -25,3 +24,5 @@ E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServ
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\osx\native\libmongocrypt.dylib
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\win\native\mongocrypt.dll
 E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.csproj.CopyComplete
+E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.csproj.AssemblyReference.cache
+E:\Schule\5AHEL\Diplom\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.GeneratedMSBuildEditorConfig.editorconfig

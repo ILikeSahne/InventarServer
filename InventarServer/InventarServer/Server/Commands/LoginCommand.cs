@@ -15,16 +15,24 @@ namespace InventarServer
             string name = _helper.ReadString();
             string pw = _helper.ReadString();
 
-            Login(db, name, pw);
-
-            _c.LoggedIn = true;
-
-            Server.WriteLine("Login to: {0}, with: {1}:{2}", db, name, pw);
+            LoginError error = Login(db, name, pw);
+            if (error == LoginError.NONE)
+            {
+                _c.LoggedIn = true;
+                Server.WriteLine("Login to: {0}, with: {1}:{2}", db, name, pw);
+                _helper.SendString("OK");
+            } else
+            {
+                _c.LoggedIn = false;
+                Server.WriteLine("Login failed: {0}, with: {1}:{2}", db, name, pw);
+                _helper.SendString(error.ToString());
+            }
         }
 
-        private void Login(string _db, string _name, string _pw)
+        private LoginError Login(string _db, string _name, string _pw)
         {
-
+            DatabaseHelper helper = new DatabaseHelper(_pw, _name, _pw);
+            return helper.Login();
         }
     }
 }
