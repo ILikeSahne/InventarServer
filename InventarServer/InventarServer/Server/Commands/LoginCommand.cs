@@ -20,18 +20,17 @@ namespace InventarServer
             {
                 _c.LoggedIn = true;
                 Server.WriteLine("Login to: {0}, with: {1}:{2}", db, name, pw);
-                _helper.SendString("OK");
             } else
             {
                 _c.LoggedIn = false;
                 Server.WriteLine("Login failed: {0}, with: {1}:{2}", db, name, pw);
-                _helper.SendString(error.ToString());
             }
+            _helper.SendString(error.ToString());
         }
 
         private LoginError Login(string _db, string _name, string _pw)
         {
-            DatabaseHelper helper = new DatabaseHelper(_pw, _name, _pw);
+            DatabaseHelper helper = new DatabaseHelper(_db, _name, _pw);
             return helper.Login();
         }
     }

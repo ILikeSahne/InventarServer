@@ -13,6 +13,7 @@ namespace InventarServer
         public static void Main(string[] args)
         {
             Instance = new InventarServerMain();
+            Console.WriteLine(AdminTest.GenerateAdminUsersDatabase("ilikesahne@gmx.at", "ilikesahne", "12345678aB!"));
         }
 
         public static MongoClient GetMongoDB()

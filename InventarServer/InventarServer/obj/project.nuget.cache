@@ -1,19 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "X2g12B6nbwDp4Zh7+hMbqUPw1SxP88k3lf0dnCogj9uwyugO/mHb3w78E+AUhpV272w59+WXobCZ2p6CvQs87g==",
+  "dgSpecHash": "/9BEVSUR7vSlXoNfmPN7XH3knoOgOzYAwgMJFV6tDE/X8qS+s25nwjDuRtT1fY5u68Ja09uiWM/1LLDsd0DNUA==",
   "success": true,
-  "projectFilePath": "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+  "projectFilePath": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.bson\\2.13.0\\mongodb.bson.2.13.0.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.driver\\2.13.0\\mongodb.driver.2.13.0.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.driver.core\\2.13.0\\mongodb.driver.core.2.13.0.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\mongodb.libmongocrypt\\1.2.1\\mongodb.libmongocrypt.1.2.1.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\sharpcompress\\0.23.0\\sharpcompress.0.23.0.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
-    "C:\\Users\\ILikeSahne\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512"
+    "C:\\Users\\ILike\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\mongodb.bson\\2.13.0\\mongodb.bson.2.13.0.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\mongodb.driver\\2.13.0\\mongodb.driver.2.13.0.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\mongodb.driver.core\\2.13.0\\mongodb.driver.core.2.13.0.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\mongodb.libmongocrypt\\1.2.1\\mongodb.libmongocrypt.1.2.1.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\sharpcompress\\0.23.0\\sharpcompress.0.23.0.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\ILike\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512"
   ],
   "logs": []
 }

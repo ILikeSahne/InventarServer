@@ -100,7 +100,7 @@ namespace InventarServer
             var user = GetUser();
 
             if (user == null)
-                return LoginError.USER_NOT_FOUND;
+                return LoginError.WRONG_USERNAME;
 
             string generatedHash = user.GetValue("password").ToString();
             string hash = Hash();
@@ -130,6 +130,6 @@ namespace InventarServer
 
     enum LoginError
     {
-        NONE, USER_NOT_FOUND, WRONG_PASSWORD
+        NONE, WRONG_DATABASE, WRONG_USERNAME, WRONG_PASSWORD
     }
 }
