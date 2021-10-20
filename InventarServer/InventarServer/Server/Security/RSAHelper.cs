@@ -4,6 +4,9 @@ using System.Text;
 
 namespace InventarServer
 {
+    /// <summary>
+    /// Helps with RSA encrypting/decrypting
+    /// </summary>
     class RSAHelper
     {
         private const int MAX_LENGTH = 86;

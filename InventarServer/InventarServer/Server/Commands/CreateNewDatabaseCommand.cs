@@ -7,11 +7,17 @@ using System.Text.RegularExpressions;
 
 namespace InventarServer
 {
+    /// <summary>
+    /// Creates a new database
+    /// </summary>
     class CreateNewDatabaseCommand : Command
     {
         public CreateNewDatabaseCommand() : base("CreateNewDatabase")
         { }
 
+        /// <summary>
+        /// Creates the database, if the admin password is correct and the database doesn't already exist
+        /// </summary>
         public override void Execute(StreamHelper _helper, Client _c)
         {
             LoginError error = AdminLogin(_helper);
@@ -25,6 +31,11 @@ namespace InventarServer
             CreateDatabase(_helper);
         }
 
+        /// <summary>
+        /// Login as Admin User
+        /// </summary>
+        /// <param name="_helper">Allows you to send an receive messages from the client</param>
+        /// <returns>An error, if the admin login wasn't successful</returns>
         public LoginError AdminLogin(StreamHelper _helper)
         {
             string adminUsername = _helper.ReadString();
@@ -35,6 +46,10 @@ namespace InventarServer
             return helper.Login();
         }
 
+        /// <summary>
+        /// Creates the database
+        /// </summary>
+        /// <param name="_helper"></param>
         public void CreateDatabase(StreamHelper _helper)
         {
             string databaseName = _helper.ReadString();

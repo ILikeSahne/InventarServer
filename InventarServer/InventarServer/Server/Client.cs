@@ -16,8 +16,16 @@ namespace InventarServer
         private RSAHelper rsaHelper;
         private StreamHelper helper;
 
+        /// <summary>
+        /// Is true, if the user is already loged in
+        /// </summary>
         public bool LoggedIn { get; set; }
 
+        /// <summary>
+        /// Creates a new client and starts the routine on its own thread
+        /// </summary>
+        /// <param name="_client">Used to send/receive messages</param>
+        /// <param name="_cmdManager">Handles command bases communication beetwen server and client</param>
         public Client(TcpClient _client, CommandManager _cmdManager)
         {
             client = _client;
@@ -30,6 +38,9 @@ namespace InventarServer
             new Thread(ClientRoutine).Start();
         }
 
+        /// <summary>
+        /// Performs command based communication
+        /// </summary>
         private void ClientRoutine()
         {
             rsaHelper = new RSAHelper(stream);
@@ -63,6 +74,9 @@ namespace InventarServer
             }
         }
 
+        /// <summary>
+        /// Closes the connection from the client
+        /// </summary>
         public void Close()
         {
             Server.WriteLine("Connection from {0} closed!", client.Client.RemoteEndPoint.ToString());

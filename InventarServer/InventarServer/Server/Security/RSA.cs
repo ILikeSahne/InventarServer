@@ -5,6 +5,9 @@ using System.Text;
 
 namespace InventarServer
 {
+    /// <summary>
+    /// Encrypts/Decrypts messages
+    /// </summary>
     class RSA
     {
         private RSACryptoServiceProvider rsa;
@@ -37,8 +40,8 @@ namespace InventarServer
         /// <summary>
         /// Uses public Key to encrypt the Data
         /// </summary>
-        /// <param name="data">The Data to encrypt</param>
-        /// <returns></returns>
+        /// <param name="data">Data to encrypt</param>
+        /// <returns>The encrypted data</returns>
         public byte[] Encrypt(byte[] _data)
         {
             using (RSACryptoServiceProvider newRsa = new RSACryptoServiceProvider())
@@ -51,8 +54,8 @@ namespace InventarServer
         /// <summary>
         /// Uses private Key to decrypt the Data
         /// </summary>
-        /// <param name="data">The Data to decrypt</param>
-        /// <returns></returns>
+        /// <param name="data">Data to decrypt</param>
+        /// <returns>The decrypted data</returns>
         public byte[] Decrypt(byte[] _data)
         {
             using (RSACryptoServiceProvider newRsa = new RSACryptoServiceProvider())

@@ -8,22 +8,42 @@ namespace InventarServer
 {
     class InventarServerMain
     {
+        /// <summary>
+        /// Used to get from static to public
+        /// </summary>
         public static InventarServerMain Instance { get; set; }
 
+        /// <summary>
+        /// Starts the Program
+        /// </summary>
         public static void Main(string[] args)
         {
             Instance = new InventarServerMain();
             Console.WriteLine(AdminTest.GenerateAdminUsersDatabase("ilikesahne@gmx.at", "ilikesahne", "12345678aB!"));
         }
 
+        /// <summary>
+        /// Returns the MongoClient
+        /// </summary>
+        /// <returns>The MongoClient</returns>
         public static MongoClient GetMongoDB()
         {
             return Instance.MongoDB;
         }
 
+        /// <summary>
+        /// Server
+        /// </summary>
         public Server Server { get; }
+
+        /// <summary>
+        /// MongoDB database
+        /// </summary>
         public MongoClient MongoDB { get; }
 
+        /// <summary>
+        /// Starts the database connection and the server
+        /// </summary>
         public InventarServerMain()
         {
             MongoDB = new MongoClient("mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb");

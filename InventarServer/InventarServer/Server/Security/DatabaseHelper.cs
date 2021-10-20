@@ -11,18 +11,40 @@ namespace InventarServer
     {
         private const string pepper = "h8xGOPtOmwCPSqnSYjcNVJc1tzpAyvZr";
 
+        /// <summary>
+        /// Database name
+        /// </summary>
         public string DB { get; }
+        /// <summary>
+        /// Username
+        /// </summary>
         public string Name { get; }
+        /// <summary>
+        /// User password
+        /// </summary>
         public string Password { get; }
 
+        /// <summary>
+        /// Used if you only want to use some helper functions
+        /// </summary>
         public DatabaseHelper()
         { }
 
+        /// <summary>
+        /// Used if you only want to hash a password
+        /// </summary>
+        /// <param name="_password">User password</param>
         public DatabaseHelper(string _password)
         {
             Password = _password;
         }
 
+        /// <summary>
+        /// Used to login into a database
+        /// </summary>
+        /// <param name="_db">Database name</param>
+        /// <param name="_name">Username</param>
+        /// <param name="_password">User password</param>
         public DatabaseHelper(string _db, string _name, string _password)
         {
             DB = _db;
@@ -30,6 +52,11 @@ namespace InventarServer
             Password = _password;
         }
 
+        /// <summary>
+        /// Hashes a password using a salt
+        /// </summary>
+        /// <param name="_salt">Salt to add to the password</param>
+        /// <returns>Hashed password</returns>
         public string Hash(string _salt)
         {
             byte[] hash = Encoding.UTF8.GetBytes(Password + pepper);
@@ -39,11 +66,19 @@ namespace InventarServer
             return Convert.ToBase64String(byteResult.GetBytes(24));
         }
 
+        /// <summary>
+        /// Generates the Hash of the password, with the salt from the database
+        /// </summary>
+        /// <returns>The salted Hash</returns>
         public string Hash()
         {
             return Hash(GetSalt());
         }
 
+        /// <summary>
+        /// Reads the salt from the database
+        /// </summary>
+        /// <returns>The salt from the database</returns>
         public string GetSalt()
         {
             var users = GetCollection("users");
@@ -60,6 +95,11 @@ namespace InventarServer
             return salt.ToString();
         }
 
+        /// <summary>
+        /// Gets a collection from the database
+        /// </summary>
+        /// <param name="_collection">Collection name</param>
+        /// <returns>The collection</returns>
         public IMongoCollection<BsonDocument> GetCollection(string _collection)
         {
             IMongoDatabase db = InventarServerMain.GetMongoDB().GetDatabase(DB);
@@ -74,6 +114,10 @@ namespace InventarServer
             return collection;
         }
 
+        /// <summary>
+        /// Gets the user from the database, based on his/her name
+        /// </summary>
+        /// <returns></returns>
         public BsonDocument GetUser()
         {
             var users = GetCollection("users");
@@ -85,6 +129,11 @@ namespace InventarServer
             return user;
         }
 
+        /// <summary>
+        /// Adds a new user to the database
+        /// </summary>
+        /// <param name="_email">User email</param>
+        /// <returns>True, if the user was added successful</returns>
         public bool AddUser(string _email)
         {
             if (GetUser() != null)
@@ -95,6 +144,10 @@ namespace InventarServer
             return true;
         }
 
+        /// <summary>
+        /// Logs into the database
+        /// </summary>
+        /// <returns>An error, if the login failed</returns>
         public LoginError Login()
         {
             var user = GetUser();
@@ -110,6 +163,10 @@ namespace InventarServer
             return LoginError.NONE;
         }
 
+        /// <summary>
+        /// Lists all databases
+        /// </summary>
+        /// <returns>A list of databases</returns>
         public List<string> ListDatabases()
         {
             List<string> databases = new List<string>();
@@ -128,6 +185,9 @@ namespace InventarServer
 
     }
 
+    /// <summary>
+    /// Possible login errors
+    /// </summary>
     enum LoginError
     {
         NONE, WRONG_DATABASE, WRONG_USERNAME, WRONG_PASSWORD

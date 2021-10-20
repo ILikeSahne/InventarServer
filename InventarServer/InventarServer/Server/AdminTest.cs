@@ -4,8 +4,18 @@ using System.Text;
 
 namespace InventarServer
 {
+    /// <summary>
+    /// Some Helper functions to make life easier
+    /// </summary>
     class AdminTest
     {
+        /// <summary>
+        /// Generates a new admin user database
+        /// </summary>
+        /// <param name="_email">Admin email</param>
+        /// <param name="_username">Admin username</param>
+        /// <param name="_password">Admin password</param>
+        /// <returns>An error string, if the database creation failed</returns>
         public static string GenerateAdminUsersDatabase(string _email, string _username, string _password)
         {
             string name = "admin_user";
@@ -37,6 +47,5 @@ namespace InventarServer
             }
             return "OK";
         }
-
     }
 }

@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace InventarServer
 {
+    /// <summary>
+    /// Validates usernames, emails and passwords
+    /// </summary>
     class Validator
     {
         public Validator()

@@ -4,11 +4,17 @@ using System.Text;
 
 namespace InventarServer
 {
+    /// <summary>
+    /// Login into a database
+    /// </summary>
     class LoginCommand : Command
     {
         public LoginCommand() : base("Login")
         { }
 
+        /// <summary>
+        /// Login into a database
+        /// </summary>
         public override void Execute(StreamHelper _helper, Client _c)
         {
             string db = _helper.ReadString();
@@ -28,6 +34,13 @@ namespace InventarServer
             _helper.SendString(error.ToString());
         }
 
+        /// <summary>
+        /// Helper function to login
+        /// </summary>
+        /// <param name="_db">Database name</param>
+        /// <param name="_name">User name</param>
+        /// <param name="_pw">User password</param>
+        /// <returns></returns>
         private LoginError Login(string _db, string _name, string _pw)
         {
             DatabaseHelper helper = new DatabaseHelper(_db, _name, _pw);
