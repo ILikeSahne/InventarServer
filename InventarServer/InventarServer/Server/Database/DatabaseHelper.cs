@@ -183,6 +183,11 @@ namespace InventarServer
             return databases;
         }
 
+        public void AddItem()
+        {
+
+        }
+
     }
 
     /// <summary>

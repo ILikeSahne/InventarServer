@@ -24,11 +24,9 @@ namespace InventarServer
             LoginError error = Login(db, name, pw);
             if (error == LoginError.NONE)
             {
-                _c.LoggedIn = true;
                 Server.WriteLine("Login to: {0}, with: {1}:{2}", db, name, pw);
             } else
             {
-                _c.LoggedIn = false;
                 Server.WriteLine("Login failed: {0}, with: {1}:{2}", db, name, pw);
             }
             _helper.SendString(error.ToString());

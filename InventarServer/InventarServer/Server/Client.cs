@@ -17,11 +17,6 @@ namespace InventarServer
         private StreamHelper helper;
 
         /// <summary>
-        /// Is true, if the user is already loged in
-        /// </summary>
-        public bool LoggedIn { get; set; }
-
-        /// <summary>
         /// Creates a new client and starts the routine on its own thread
         /// </summary>
         /// <param name="_client">Used to send/receive messages</param>
@@ -31,8 +26,6 @@ namespace InventarServer
             client = _client;
             cmdManager = _cmdManager;
             stream = client.GetStream();
-
-            LoggedIn = false;
 
             Server.WriteLine("New Client from: {0}", client.Client.RemoteEndPoint.ToString());
             new Thread(ClientRoutine).Start();
