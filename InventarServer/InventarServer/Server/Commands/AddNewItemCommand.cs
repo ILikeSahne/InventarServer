@@ -12,7 +12,6 @@ namespace InventarServer
     {
         public AddNewItemCommand() : base("AddNewItem")
         { }
-
         
         public override void Execute(StreamHelper _helper, Client _c)
         {
@@ -29,7 +28,8 @@ namespace InventarServer
             _helper.SendString("OK");
             string json = _helper.ReadString();
             Item i = JsonSerializer.Deserialize<Item>(json);
-            Server.WriteLine(i.ToString());
+            Server.WriteLine("Adding new Item: " + i.Anlage + ", " + i.Unternummer + ", " + i.AktuelleInventarNummer);
+            dbHelper.AddItem(i);
         }
     }
 }

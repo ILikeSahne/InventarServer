@@ -47,6 +47,8 @@ namespace InventarServer
         /// <param name="_password">User password</param>
         public DatabaseHelper(string _db, string _name, string _password)
         {
+            if (_db == "")
+                _db = "_";
             DB = _db;
             Name = _name;
             Password = _password;
@@ -183,9 +185,10 @@ namespace InventarServer
             return databases;
         }
 
-        public void AddItem()
+        public void AddItem(Item _i)
         {
-
+            var collection = GetCollection("items");
+            collection.InsertOne(_i.GetItemAsBson());
         }
 
     }

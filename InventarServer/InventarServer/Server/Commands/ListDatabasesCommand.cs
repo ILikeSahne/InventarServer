@@ -11,6 +11,11 @@ namespace InventarServer
     /// </summary>
     class ListDatabasesCommand : Command
     {
+        private readonly string[] mongodbDbNames =
+        {
+            "admin", "local", "config", "admin_user"
+        };
+
         public ListDatabasesCommand() : base("ListDatabases")
         { }
 
@@ -19,7 +24,22 @@ namespace InventarServer
         /// </summary>
         public override void Execute(StreamHelper _helper, Client _c)
         {
-            List<string> databases = new DatabaseHelper().ListDatabases();
+            List<string> allDatabases = new DatabaseHelper().ListDatabases();
+            List<string> databases = new List<string>();
+            foreach(string name in allDatabases)
+            {
+                bool nameOk = true;
+                foreach(string mongoDbName in mongodbDbNames)
+                {
+                    if(name.Equals(mongoDbName))
+                    {
+                        nameOk = false;
+                        break;
+                    }
+                }
+                if(nameOk)
+                    databases.Add(name);
+            }
             _helper.SendInt(databases.Count);
             foreach(string name in databases)
             {

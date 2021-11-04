@@ -36,34 +36,43 @@ namespace InventarServer
         /// </summary>
         private void ClientRoutine()
         {
-            rsaHelper = new RSAHelper(stream);
             try
             {
-                rsaHelper.SetupServer();
-            } catch (Exception e)
-            {
-                Server.WriteLine("Error: {0}", e.ToString());
-                Close();
-            }
-            helper = new StreamHelper(rsaHelper);
-            while (client.Connected)
-            {
-                string commandType = "";
+                rsaHelper = new RSAHelper(stream);
                 try
                 {
-                    commandType = helper.ReadString();
-                } catch(Exception e)
+                    rsaHelper.SetupServer();
+                }
+                catch (Exception e)
                 {
+                    Server.WriteLine("Error: {0}", e.ToString());
                     Close();
                 }
-                foreach (Command c in cmdManager.Commands)
+                helper = new StreamHelper(rsaHelper);
+                while (client.Connected)
                 {
-                    if (c.CMD.Equals(commandType))
+                    string commandType = "";
+                    try
                     {
-                        c.Execute(helper, this);
-                        break;
+                        commandType = helper.ReadString();
+                        foreach (Command c in cmdManager.Commands)
+                        {
+                            if (c.CMD.Equals(commandType))
+                            {
+                                c.Execute(helper, this);
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Close();
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                Server.WriteLine("Unexpected Error: {0}", e.ToString());
             }
         }
 
