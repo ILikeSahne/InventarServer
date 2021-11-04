@@ -191,6 +191,17 @@ namespace InventarServer
             collection.InsertOne(_i.GetItemAsBson());
         }
 
+        public List<Item> ListItems() {
+            var collection = GetCollection("items");
+            var rawItems = collection.Find(_ => true).ToList();
+            List<Item> items = new List<Item>();
+            foreach(var rawItem in rawItems)
+            {
+                items.Add(new Item(rawItem));
+            }
+            return items;
+        }
+
     }
 
     /// <summary>

@@ -20,21 +20,42 @@ namespace InventarServer
         public string Raum { get; set; }
         public string RaumBezeichnung { get; set; }
 
+        public Item()
+        {
+
+        }
+
+        public Item(BsonDocument _doc)
+        {
+            FromBson(_doc);
+        }
+
+        public string[] ToStrings()
+        {
+            return new string[]
+            {
+                Anlage,
+                Unternummer,
+                AktuelleInventarNummer,
+                AktivierungAm.ToString(),
+                Anlagenbezeichnung,
+                Serialnummer,
+                AnschaffungsWert.ToString(),
+                BuchWert.ToString(),
+                Waehrung,
+                KfzKennzeichen,
+                Raum,
+                RaumBezeichnung
+            };
+        }
+
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(Anlage);
-            builder.AppendLine(Unternummer);
-            builder.AppendLine(AktuelleInventarNummer);
-            builder.AppendLine(AktivierungAm.ToString());
-            builder.AppendLine(Anlagenbezeichnung);
-            builder.AppendLine(Serialnummer);
-            builder.AppendLine(AnschaffungsWert.ToString());
-            builder.AppendLine(BuchWert.ToString());
-            builder.AppendLine(Waehrung);
-            builder.AppendLine(KfzKennzeichen);
-            builder.AppendLine(Raum);
-            builder.AppendLine(RaumBezeichnung);
+            foreach (string s in ToStrings())
+            {
+                builder.AppendLine(s);
+            }
             return builder.ToString();
         }
 

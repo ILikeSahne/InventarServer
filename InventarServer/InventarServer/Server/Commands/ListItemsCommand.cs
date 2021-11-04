@@ -8,9 +8,9 @@ namespace InventarServer
     /// <summary>
     /// Adds a new item to a database
     /// </summary>
-    class AddNewItemCommand : Command
+    class ListItemsCommand : Command
     {
-        public AddNewItemCommand() : base("AddNewItem")
+        public ListItemsCommand() : base("ListItems")
         { }
         
         public override void Execute(StreamHelper _helper, Client _c)
@@ -26,17 +26,11 @@ namespace InventarServer
                 return;
             }
             _helper.SendString("OK");
-            Server.WriteLine("test");
-            string json = _helper.ReadString();
-            try
-            {
-                Item i = JsonSerializer.Deserialize<Item>(json);
-                Server.WriteLine("Adding new Item: " + i.Anlage + ", " + i.Unternummer + ", " + i.AktuelleInventarNummer);
-                dbHelper.AddItem(i);
-            }
-            catch(Exception e)
-            {
-                Server.WriteLine(e.ToString());
+            List<Item> items = dbHelper.ListItems();
+            _helper.SendInt(items.Count);
+            foreach(Item i in items) {
+                string json = JsonSerializer.Serialize(i);
+                _helper.SendString(json);
             }
         }
     }
