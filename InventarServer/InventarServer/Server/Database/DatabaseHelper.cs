@@ -191,6 +191,24 @@ namespace InventarServer
             collection.InsertOne(_i.GetItemAsBson());
         }
 
+        public void DeleteItem(string _id)
+        {
+            try
+            {
+                DeleteItem(ObjectId.Parse(_id));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        public void DeleteItem(ObjectId _id) {
+            var collection = GetCollection("items");
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
+            collection.DeleteOne(filter);
+        }
+        
         public List<Item> ListItems() {
             var collection = GetCollection("items");
             var rawItems = collection.Find(_ => true).ToList();

@@ -7,6 +7,7 @@ namespace InventarServer
 {
     public class Item   
     {
+        public string ID { get; set; }
         public string Anlage { get; set; }
         public string Unternummer { get; set; }
         public string AktuelleInventarNummer { get; set; }
@@ -80,6 +81,7 @@ namespace InventarServer
 
         public void FromBson(BsonDocument _doc)
         {
+            ID = _doc.GetValue("_id").AsObjectId.ToString();
             Anlage = _doc.GetValue("Anlage").AsString;
             Unternummer = _doc.GetValue("Unternummer").AsString;
             AktuelleInventarNummer = _doc.GetValue("AktuelleInventarNummer").AsString;
