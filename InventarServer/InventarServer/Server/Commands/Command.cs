@@ -27,6 +27,7 @@ namespace InventarServer
             Commands.Add(new AddNewItemCommand());
             Commands.Add(new DeleteItemCommand());
             Commands.Add(new ListItemsCommand());
+            Commands.Add(new AddNewUserCommand());
         }
     }
 

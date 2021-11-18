@@ -11,6 +11,8 @@ namespace InventarServer
     {
         private const string pepper = "h8xGOPtOmwCPSqnSYjcNVJc1tzpAyvZr";
 
+        private Validator validator;
+
         /// <summary>
         /// Database name
         /// </summary>
@@ -27,17 +29,15 @@ namespace InventarServer
         /// <summary>
         /// Used if you only want to use some helper functions
         /// </summary>
-        public DatabaseHelper()
+        public DatabaseHelper() : this("", "", "")
         { }
 
         /// <summary>
         /// Used if you only want to hash a password
         /// </summary>
         /// <param name="_password">User password</param>
-        public DatabaseHelper(string _password)
-        {
-            Password = _password;
-        }
+        public DatabaseHelper(string _password) : this("", "", _password)
+        { }
 
         /// <summary>
         /// Used to login into a database
@@ -52,6 +52,7 @@ namespace InventarServer
             DB = _db;
             Name = _name;
             Password = _password;
+            validator = new Validator();
         }
 
         /// <summary>
@@ -120,12 +121,12 @@ namespace InventarServer
         /// Gets the user from the database, based on his/her name
         /// </summary>
         /// <returns></returns>
-        public BsonDocument GetUser()
+        public BsonDocument GetUser(string _name)
         {
             var users = GetCollection("users");
 
-            var filter = Builders<BsonDocument>.Filter.Eq("username", Name);
-            filter |= Builders<BsonDocument>.Filter.Eq("email", Name);
+            var filter = Builders<BsonDocument>.Filter.Eq("username", _name);
+            filter |= Builders<BsonDocument>.Filter.Eq("email", _name);
 
             var user = users.Find(filter).FirstOrDefault();
             return user;
@@ -138,12 +139,31 @@ namespace InventarServer
         /// <returns>True, if the user was added successful</returns>
         public bool AddUser(string _email)
         {
-            if (GetUser() != null)
+            if (!UsernameOk() || !EmailOk(_email))
                 return false;
             var collection = GetCollection("users");
             User user = new User(_email, Name, Password);
             collection.InsertOne(user.GetUserAsBson());
             return true;
+        }
+
+        public bool EmailOk(string _email)
+        {
+            if (GetUser(_email) != null)
+                return false;
+            return validator.ValidateEmail(_email);
+        }
+
+        public bool PasswordOk()
+        {
+            return validator.ValidatePassword(Password);
+        }
+
+        public bool UsernameOk()
+        {
+            if (GetUser(Name) != null)
+                return false;
+            return validator.ValidateUsername(Name);
         }
 
         /// <summary>
@@ -152,7 +172,7 @@ namespace InventarServer
         /// <returns>An error, if the login failed</returns>
         public LoginError Login()
         {
-            var user = GetUser();
+            var user = GetUser(Name);
 
             if (user == null)
                 return LoginError.WRONG_USERNAME;
