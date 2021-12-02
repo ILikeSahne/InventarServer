@@ -19,7 +19,7 @@ namespace InventarServer
         public static void Main(string[] args)
         {
             Instance = new InventarServerMain();
-            Console.WriteLine(AdminTest.GenerateAdminUsersDatabase("ilikesahne@gmx.at", "ilikesahne", "12345678aB!"));
+            // AdminTest.DeleteItem("TestDB", "TestUser2", "Test123!!!", "Master");
         }
 
         /// <summary>

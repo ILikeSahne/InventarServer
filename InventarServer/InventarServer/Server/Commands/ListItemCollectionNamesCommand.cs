@@ -1,18 +1,23 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 
 namespace InventarServer
 {
     /// <summary>
-    /// Adds a new item to a database
+    /// Lists all Databases
     /// </summary>
-    class AddNewItemCommand : Command
+    class ListItemCollectionNamesCommand : Command
     {
-        public AddNewItemCommand() : base("AddNewItem")
+
+        public ListItemCollectionNamesCommand() : base("ListItemCollectionNames")
         { }
-        
+
+        /// <summary>
+        /// Sends a list of databases to the client
+        /// </summary>
         public override void Execute(StreamHelper _helper, Client _c)
         {
             string db = _helper.ReadString();
@@ -26,18 +31,12 @@ namespace InventarServer
                 return;
             }
             _helper.SendString("OK");
-            string itemCollectionName = _helper.ReadString();
-            string json = _helper.ReadString();
-            try
+
+            List<string> itemCollections = new DatabaseHelper(db, name, pw).ListItemCollections();
+            _helper.SendInt(itemCollections.Count);
+            foreach(string itemCollectionName in itemCollections)
             {
-                Item i = JsonSerializer.Deserialize<Item>(json);
-                i.GenerateID();
-                Server.WriteLine("Adding new Item: " + i.ID);
-                dbHelper.AddItem(i, itemCollectionName);
-            }
-            catch(Exception e)
-            {
-                Server.WriteLine(e.ToString());
+                _helper.SendString(itemCollectionName);
             }
         }
     }

@@ -23,18 +23,32 @@ namespace InventarServer
 
         public Item()
         {
-
+            ID = Guid.NewGuid().ToString();
+            Anlage = "";
+            Unternummer = "";
+            AktuelleInventarNummer = "";
+            AktivierungAm = DateTime.Now;
+            Anlagenbezeichnung = "";
+            Serialnummer = "";
+            AnschaffungsWert = 0;
+            BuchWert = 0;
+            Waehrung = "€";
+            KfzKennzeichen = "";
+            Raum = "";
+            RaumBezeichnung = "";
         }
 
         public Item(BsonDocument _doc)
         {
             FromBson(_doc);
+            GenerateID();
         }
 
         public string[] ToStrings()
         {
             return new string[]
             {
+                ID, 
                 Anlage,
                 Unternummer,
                 AktuelleInventarNummer,
@@ -64,6 +78,7 @@ namespace InventarServer
         {
             return new BsonDocument
             {
+                { "ID", ID },
                 { "Anlage", Anlage },
                 { "Unternummer", Unternummer },
                 { "AktuelleInventarNummer", AktuelleInventarNummer },
@@ -81,7 +96,7 @@ namespace InventarServer
 
         public void FromBson(BsonDocument _doc)
         {
-            ID = _doc.GetValue("_id").AsObjectId.ToString();
+            ID = _doc.GetValue("ID").AsString;
             Anlage = _doc.GetValue("Anlage").AsString;
             Unternummer = _doc.GetValue("Unternummer").AsString;
             AktuelleInventarNummer = _doc.GetValue("AktuelleInventarNummer").AsString;
@@ -94,6 +109,12 @@ namespace InventarServer
             KfzKennzeichen = _doc.GetValue("KfzKennzeichen").AsString;
             Raum = _doc.GetValue("Raum").AsString;
             RaumBezeichnung = _doc.GetValue("RaumBezeichnung").AsString;
+        }
+
+        public void GenerateID()
+        {
+            if (string.IsNullOrWhiteSpace(ID))
+                ID = Guid.NewGuid().ToString();
         }
     }
 }

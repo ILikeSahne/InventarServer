@@ -205,39 +205,68 @@ namespace InventarServer
             return databases;
         }
 
-        public void AddItem(Item _i)
+        public void AddItem(Item _i, string _itemCollection)
         {
             var collection = GetCollection("items");
-            collection.InsertOne(_i.GetItemAsBson());
+            var filter = Builders<BsonDocument>.Filter.Eq("itemCollectionName", _itemCollection);
+            var itemCollection = collection.Find(filter).FirstOrDefault();
+            if(itemCollection == null)
+            {
+                itemCollection = new BsonDocument("itemCollectionName", _itemCollection);
+                BsonArray items = new BsonArray();
+                items.Add(_i.GetItemAsBson());
+                itemCollection.Add("items", items);
+                collection.InsertOne(itemCollection);
+                return;
+            }
+            var update = Builders<BsonDocument>.Update.Push("items", _i.GetItemAsBson());
+            collection.UpdateOne(filter, update);
         }
 
-        public void DeleteItem(string _id)
-        {
-            try
-            {
-                DeleteItem(ObjectId.Parse(_id));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-
-        public void DeleteItem(ObjectId _id) {
+        public void DeleteItem(string _id, string _itemCollection) {
             var collection = GetCollection("items");
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", _id);
-            collection.DeleteOne(filter);
+            var filter = Builders<BsonDocument>.Filter.Eq("itemCollectionName", _itemCollection);
+            var itemCollection = collection.Find(filter).FirstOrDefault();
+            if (itemCollection == null)
+                return;
+            BsonArray ba = itemCollection.GetElement("items").Value.AsBsonArray;
+            foreach (BsonValue be in ba)
+            {
+                Item item = new Item(be.AsBsonDocument);
+                if (item.ID == _id)
+                {
+                    var update = Builders<BsonDocument>.Update.Pull("items", item.GetItemAsBson());
+                    collection.UpdateOne(filter, update);
+                    break;
+                }
+            }
         }
         
-        public List<Item> ListItems() {
+        public List<Item> ListItems(string _itemCollection) {
             var collection = GetCollection("items");
-            var rawItems = collection.Find(_ => true).ToList();
+            var filter = Builders<BsonDocument>.Filter.Eq("itemCollectionName", _itemCollection);
+            var itemCollection = collection.Find(filter).FirstOrDefault();
             List<Item> items = new List<Item>();
-            foreach(var rawItem in rawItems)
+            if (itemCollection == null)
+                return items;
+
+            foreach(var rawItem in itemCollection.GetElement("items").Value.AsBsonArray)
             {
-                items.Add(new Item(rawItem));
+                items.Add(new Item(rawItem.AsBsonDocument));
             }
             return items;
+        }
+
+        public List<string> ListItemCollections()
+        {
+            var collection = GetCollection("items");
+            var itemCollections = collection.Find(_ => true).ToList();
+            List<string> names = new List<string>();
+            foreach (var coll in itemCollections)
+            {
+                names.Add(coll.GetElement("itemCollectionName").Value.AsString);
+            }
+            return names;
         }
 
     }

@@ -26,8 +26,9 @@ namespace InventarServer
                 return;
             }
             _helper.SendString("OK");
+            string itemCollection = _helper.ReadString();
             string objectID = _helper.ReadString();
-            dbHelper.DeleteItem(objectID);
+            dbHelper.DeleteItem(objectID, itemCollection);
         }
     }
 }

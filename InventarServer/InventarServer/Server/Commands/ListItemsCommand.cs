@@ -26,7 +26,8 @@ namespace InventarServer
                 return;
             }
             _helper.SendString("OK");
-            List<Item> items = dbHelper.ListItems();
+            string itemCollection = _helper.ReadString();
+            List<Item> items = dbHelper.ListItems(itemCollection);
             _helper.SendInt(items.Count);
             foreach(Item i in items) {
                 string json = JsonSerializer.Serialize(i);

@@ -47,5 +47,19 @@ namespace InventarServer
             }
             return "OK";
         }
+
+        public static void AddItem(string _db, string _username, string _password, string _itemCollection)
+        {
+            Item i = new Item();
+            DatabaseHelper dbHelper = new DatabaseHelper(_db, _username, _password);
+            dbHelper.AddItem(i, _itemCollection);
+        }
+
+        public static void DeleteItem(string _db, string _username, string _password, string _itemCollection)
+        {
+            DatabaseHelper dbHelper = new DatabaseHelper(_db, _username, _password);
+            Item i = dbHelper.ListItems(_itemCollection)[0];
+            dbHelper.DeleteItem(i.ID, _itemCollection);
+        }
     }
 }
