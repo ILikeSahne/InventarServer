@@ -205,6 +205,15 @@ namespace InventarServer
             return databases;
         }
 
+        public void AddItemCollection(string _itemCollection)
+        {
+            var collection = GetCollection("items");
+            var itemCollection = new BsonDocument("itemCollectionName", _itemCollection);
+            BsonArray items = new BsonArray();
+            itemCollection.Add("items", items);
+            collection.InsertOne(itemCollection);
+        }
+
         public void AddItem(Item _i, string _itemCollection)
         {
             var collection = GetCollection("items");

@@ -1,6 +1,8 @@
 ﻿using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Text;
 
 namespace InventarServer
@@ -20,6 +22,11 @@ namespace InventarServer
         public string KfzKennzeichen { get; set; }
         public string Raum { get; set; }
         public string RaumBezeichnung { get; set; }
+        public string Status { get; set; }
+        public string Notiz { get; set; }
+        public List<Image> Bilder { get; set; }
+        public List<string> Verlauf { get; set; }
+
 
         public Item()
         {
@@ -36,6 +43,10 @@ namespace InventarServer
             KfzKennzeichen = "";
             Raum = "";
             RaumBezeichnung = "";
+            Status = "";
+            Notiz = "";
+            Bilder = new List<Image>();
+            Verlauf = new List<string>();
         }
 
         public Item(BsonDocument _doc)
@@ -60,7 +71,9 @@ namespace InventarServer
                 Waehrung,
                 KfzKennzeichen,
                 Raum,
-                RaumBezeichnung
+                RaumBezeichnung,
+                Status,
+                Notiz
             };
         }
 
@@ -76,6 +89,21 @@ namespace InventarServer
 
         public BsonDocument GetItemAsBson()
         {
+            BsonArray images = new BsonArray();
+            foreach (Image i in Bilder)
+            {
+                using (var _memorystream = new MemoryStream())
+                {
+                    i.Save(_memorystream, i.RawFormat);
+                    byte[] img = _memorystream.ToArray();
+                    images.Add(img);
+                }
+            }
+            BsonArray history = new BsonArray();
+            foreach (string s in Verlauf)
+            {
+                history.Add(s);
+            }
             return new BsonDocument
             {
                 { "ID", ID },
@@ -90,12 +118,18 @@ namespace InventarServer
                 { "Waehrung", Waehrung },
                 { "KfzKennzeichen", KfzKennzeichen },
                 { "Raum", Raum },
-                { "RaumBezeichnung", RaumBezeichnung }
+                { "RaumBezeichnung", RaumBezeichnung },
+                { "Status", Status },
+                { "Notiz", Notiz },
+                { "Bilder", images },
+                { "Verlauf", history }
             };
         }
 
         public void FromBson(BsonDocument _doc)
         {
+            Bilder = new List<Image>();
+            Verlauf = new List<string>();
             ID = _doc.GetValue("ID").AsString;
             Anlage = _doc.GetValue("Anlage").AsString;
             Unternummer = _doc.GetValue("Unternummer").AsString;
@@ -109,6 +143,20 @@ namespace InventarServer
             KfzKennzeichen = _doc.GetValue("KfzKennzeichen").AsString;
             Raum = _doc.GetValue("Raum").AsString;
             RaumBezeichnung = _doc.GetValue("RaumBezeichnung").AsString;
+            Status = _doc.GetValue("Status").AsString;
+            Notiz = _doc.GetValue("Notiz").AsString;
+            BsonArray images = _doc.GetValue("Bilder").AsBsonArray;
+            foreach (var b in images)
+            {
+                byte[] img = b.AsByteArray;
+                Bilder.Add(Image.FromStream(new MemoryStream(img)));
+            }
+            BsonArray history = _doc.GetValue("Verlauf").AsBsonArray;
+            foreach (var h in history)
+            {
+                Verlauf.Add(h.AsString);
+            }
+
         }
 
         public void GenerateID()
