@@ -20,16 +20,11 @@ namespace InventarServer
         public CommandManager()
         {
             Commands = new List<Command>();
-            Commands.Add(new LoginCommand());
             Commands.Add(new ListDatabasesCommand());
-            Commands.Add(new CloseCommand());
+            Commands.Add(new LoginCommand());
             Commands.Add(new CreateNewDatabaseCommand());
-            Commands.Add(new AddNewItemCommand());
-            Commands.Add(new DeleteItemCommand());
-            Commands.Add(new ListItemsCommand());
             Commands.Add(new AddNewUserCommand());
-            Commands.Add(new ListItemCollectionNamesCommand());
-            Commands.Add(new AddNewItemCollectionCommand());
+            Commands.Add(new ListUserCommand());
         }
     }
 
@@ -58,7 +53,35 @@ namespace InventarServer
         /// </summary>
         /// <param name="_helper">Allows you to send an receive messages from the client</param>
         /// <param name="_c">Holds data about the client</param>
-        public virtual void Execute(StreamHelper _helper, Client _c)
-        { }
+        public void Call(User _u, StreamHelper _helper, Client _c)
+        {
+            Execute(_u, _helper, _c);
+        }
+
+        public virtual void Execute(User _u, StreamHelper _helper, Client _c)
+        {
+
+        }
+
+        public bool CheckForAdmin(User _u, StreamHelper _helper)
+        {
+            if (!_u.IsAdmin())
+            {
+                SendNoPermissionMessage(_helper);
+                return false;
+            }
+            SendOKMessage(_helper);
+            return true;
+        }
+
+        public void SendNoPermissionMessage(StreamHelper _helper)
+        {
+            _helper.SendString("Not enough Permissions!");
+        }
+
+        public void SendOKMessage(StreamHelper _helper)
+        {
+            _helper.SendString("OK");
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace InventarServer
         {
             Instance = new InventarServerMain();
             // AdminTest.DeleteItem("TestDB", "TestUser2", "Test123!!!", "Master");
+            AdminTest.CreateAdminUserDatabase();
         }
 
         /// <summary>

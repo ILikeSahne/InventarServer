@@ -8,6 +8,8 @@ namespace InventarServer
 {
     class Client
     {
+        private const string okResponse = "OK";
+
         private TcpClient client;
         private NetworkStream stream;
 
@@ -48,18 +50,36 @@ namespace InventarServer
                     Server.WriteLine("Error: {0}", e.ToString());
                     Close();
                 }
+
                 helper = new StreamHelper(rsaHelper);
+                string database = helper.ReadString();
+                string username = helper.ReadString();
+                string password = helper.ReadString();
+
+                User u = new User(database, username, password);
+                LoginError error = u.Login();
+                helper.SendString(error.ToString());
+                if (error != LoginError.NONE)
+                {
+                    if (u.Username == "")
+                    {
+                        string commandType = helper.ReadString();
+                        if (commandType == "ListDatabases")
+                            cmdManager.Commands[0].Call(u, helper, this);
+                    }
+                    Close();
+                }
+
                 while (client.Connected)
                 {
-                    string commandType = "";
                     try
                     {
-                        commandType = helper.ReadString();
+                        string commandType = helper.ReadString();
                         foreach (Command c in cmdManager.Commands)
                         {
                             if (c.CMD.Equals(commandType))
                             {
-                                c.Execute(helper, this);
+                                c.Call(u, helper, this);
                                 break;
                             }
                         }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {}
+    "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {}
   },
   "projects": {
-    "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {
+    "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+        "projectUniqueName": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
         "projectName": "InventarServer",
-        "projectPath": "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+        "projectPath": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
         "packagesPath": "C:\\Users\\ILikeSahne\\.nuget\\packages\\",
-        "outputPath": "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\obj\\",
+        "outputPath": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

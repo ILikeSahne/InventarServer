@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XgtYhNWjkIiSLFbl4vVArzRYcB2x4Nl/qPsi3BOvWDfh1BMG8tQtJzJWWLAhbVFhNkS5C8+IuXdL4Zmt5MuVJw==",
+  "dgSpecHash": "I10gO+ECJjZ3FW8d1FvLfYqaSqj5F36GkS8FQJbtohF2Uu4DMUgrcP46kGTKMvePjFMKffCtmIuQXv4jm4gcGQ==",
   "success": true,
-  "projectFilePath": "E:\\Schule\\5AHEL\\Diplom\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+  "projectFilePath": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ILikeSahne\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\ILikeSahne\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",

@@ -11,9 +11,6 @@ namespace InventarServer
     /// </summary>
     class Validator
     {
-        public Validator()
-        { }
-
         /// <summary>
         /// Validates a Password
         /// Requirements:
@@ -23,7 +20,7 @@ namespace InventarServer
         /// </summary>
         /// <param name="_username">The Username to validate</param>
         /// <returns>True if the Username is valid</returns>
-        public bool ValidateUsername(string _username)
+        public static bool ValidateUsername(string _username)
         {
             Regex r = new Regex("^(?=.{2,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
             return r.IsMatch(_username);
@@ -34,7 +31,7 @@ namespace InventarServer
         /// </summary>
         /// <param name="_email">The Email to validate</param>
         /// <returns>True if the Email is valid</returns>
-        public bool ValidateEmail(string _email)
+        public static bool ValidateEmail(string _email)
         {
             try
             {
@@ -58,7 +55,7 @@ namespace InventarServer
         /// </summary>
         /// <param name="_password">The Password to validate</param>
         /// <returns>True if the Password is valid</returns>
-        public bool ValidatePassword(string _password)
+        public static bool ValidatePassword(string _password)
         {
             var input = _password;
 
@@ -84,5 +81,10 @@ namespace InventarServer
 
             return true;
         }
+    }
+
+    enum ValidateError
+    {
+        NONE, EMAIL, USERNAME, PASSWORD
     }
 }
