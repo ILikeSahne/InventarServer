@@ -39,6 +39,8 @@ namespace InventarServer
                 return;
             Collection userCollection = Database.GetCollection("users");
             var user = userCollection.FindOne("username", Username);
+            if (user == null)
+                return;
             var permissions = user.GetValue("permissions").AsBsonArray;
             foreach (BsonValue val in permissions)
                 Permissions.Add(val.AsString);
