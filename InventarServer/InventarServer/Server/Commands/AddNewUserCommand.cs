@@ -11,7 +11,7 @@ namespace InventarServer
 
         public override void Execute(User _u, StreamHelper _helper, Client _c)
         {
-            if (!CheckForAdmin(_u, _helper))
+            if (!IsAdmin(_u, _helper))
                 return;
 
             string email = _helper.ReadString();

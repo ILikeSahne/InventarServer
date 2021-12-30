@@ -25,6 +25,7 @@ namespace InventarServer
             Commands.Add(new CreateNewDatabaseCommand());
             Commands.Add(new AddNewUserCommand());
             Commands.Add(new ListUserCommand());
+            Commands.Add(new AddPermissionCommand());
         }
     }
 
@@ -63,7 +64,7 @@ namespace InventarServer
 
         }
 
-        public bool CheckForAdmin(User _u, StreamHelper _helper)
+        public bool IsAdmin(User _u, StreamHelper _helper)
         {
             if (!_u.IsAdmin())
             {
