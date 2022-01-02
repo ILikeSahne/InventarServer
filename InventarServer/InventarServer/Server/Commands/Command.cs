@@ -26,6 +26,7 @@ namespace InventarServer
             Commands.Add(new AddNewUserCommand());
             Commands.Add(new ListUserCommand());
             Commands.Add(new AddPermissionCommand());
+            Commands.Add(new RemovePermissionCommand());
         }
     }
 
