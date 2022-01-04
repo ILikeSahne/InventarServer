@@ -16,19 +16,8 @@ namespace InventarServer
 
             string username = _helper.ReadString();
             string permission = _helper.ReadString();
-            RemovePermission(_u.Database, username, permission);
+            User target = new User(_u.Database, username, "");
+            target.RemovePermission(permission);
         }
-
-        public void RemovePermission(Database _d, string _username, string _permission)
-        {
-            Collection userCol = _d.GetCollection("users");
-
-            var user = userCol.FindOne("username", _username);
-            var perms = user.GetValue("permissions").AsBsonArray;
-            perms.Remove(_permission);
-
-            userCol.UpdateEntry("username", _username, user);
-        }
-
     }
 }

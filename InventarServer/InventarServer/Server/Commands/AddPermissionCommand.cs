@@ -16,18 +16,8 @@ namespace InventarServer
 
             string username = _helper.ReadString();
             string permission = _helper.ReadString();
-            AddPermission(_u.Database, username, permission);
-        }
-
-        public void AddPermission(Database _d, string _username, string _permission)
-        {
-            Collection userCol = _d.GetCollection("users");
-
-            var user = userCol.FindOne("username", _username);
-            var perms = user.GetValue("permissions").AsBsonArray;
-            perms.Add(_permission);
-
-            userCol.UpdateEntry("username", _username, user);
+            User target = new User(_u.Database, username, "");
+            target.AddPermission(permission);
         }
 
     }

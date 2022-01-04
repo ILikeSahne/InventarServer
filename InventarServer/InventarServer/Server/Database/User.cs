@@ -37,8 +37,7 @@ namespace InventarServer
             Permissions = new List<string>();
             if (Database == null)
                 return;
-            Collection userCollection = Database.GetCollection("users");
-            var user = userCollection.FindOne("username", Username);
+            var user = GetUser().user;
             if (user == null)
                 return;
             var permissions = user.GetValue("permissions").AsBsonArray;
@@ -89,6 +88,38 @@ namespace InventarServer
             return HasPermission("admin");
         }
 
+        public void AddPermission(string _permission)
+        {
+            Collection userCol = Database.GetCollection("users");
+
+            var userObject = GetUser();
+            var user = userObject.user;
+
+            var perms = user.GetValue("permissions").AsBsonArray;
+            perms.Add(_permission);
+
+            if (userObject.isEmail)
+                userCol.UpdateEntry("email", Username, user);
+            else if (userObject.isUsername)
+                userCol.UpdateEntry("username", Username, user);
+        }
+
+        public void RemovePermission(string _permission)
+        {
+            Collection userCol = Database.GetCollection("users");
+
+            var userObject = GetUser();
+            var user = userObject.user;
+
+            var perms = user.GetValue("permissions").AsBsonArray;
+            perms.Remove(_permission);
+
+            if (userObject.isEmail)
+                userCol.UpdateEntry("email", Username, user);
+            else if (userObject.isUsername)
+                userCol.UpdateEntry("username", Username, user);
+        }
+
         public BsonDocument AsBson(string _email, string _salt)
         {
             string hashedPassword = Database.Hash(_salt, Password);
@@ -107,6 +138,19 @@ namespace InventarServer
             };
 
             return user;
+        }
+
+        public (BsonDocument user, bool isEmail, bool isUsername) GetUser()
+        {
+            Collection userCol = Database.GetCollection("users");
+
+            var byEmail = userCol.FindOne("email", Username);
+            var byUsername = userCol.FindOne("username", Username);
+            if (byEmail != null)
+                return (byEmail, true, false);
+            if(byUsername != null)
+                return (byUsername, false, true);
+            return (null, false, false); ;
         }
     }
 

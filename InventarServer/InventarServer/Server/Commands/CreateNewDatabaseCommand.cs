@@ -37,6 +37,9 @@ namespace InventarServer
                 return;
             }
 
+            User u = new User(d, username, password);
+            u.AddPermission("admin");
+
             SendOKMessage(_helper);
         }
     }
