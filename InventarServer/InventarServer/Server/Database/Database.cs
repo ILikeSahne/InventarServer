@@ -97,11 +97,15 @@ namespace InventarServer
         public ValidateError AddUser(string _email, string _username, string _password)
         {
             if (!Validator.ValidateEmail(_email))
-                return ValidateError.EMAIL;
+                return ValidateError.EMAIL_USED;
             if (!Validator.ValidateUsername(_username))
-                return ValidateError.USERNAME;
+                return ValidateError.USERNAME_USED;
             if (!Validator.ValidatePassword(_password))
-                return ValidateError.PASSWORD;
+                return ValidateError.PASSWORD_WRONG;
+
+            ValidateError error = EmailOrUsernameUsed(_email, _username);
+            if (error != ValidateError.NONE)
+                return error;
 
             Collection c = GetCollection("users");
 
@@ -111,6 +115,20 @@ namespace InventarServer
 
             c.AddOne(u.AsBson(_email, salt));
 
+            return ValidateError.NONE;
+        }
+
+        private ValidateError EmailOrUsernameUsed(string _email, string _username)
+        {
+            Collection c = GetCollection("users");
+            foreach (BsonDocument bd in c.GetAll())
+            {
+                UserData data = UserData.FromBson(bd);
+                if (data.Email == _email)
+                    return ValidateError.EMAIL_USED;
+                if (data.Username == _username)
+                    return ValidateError.USERNAME_USED;
+            }
             return ValidateError.NONE;
         }
 

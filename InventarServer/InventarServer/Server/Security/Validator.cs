@@ -85,6 +85,6 @@ namespace InventarServer
 
     enum ValidateError
     {
-        NONE, EMAIL, USERNAME, PASSWORD
+        NONE, EMAIL_WRONG, USERNAME_WRONG, PASSWORD_WRONG, EMAIL_USED, USERNAME_USED
     }
 }
