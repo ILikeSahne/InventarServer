@@ -8,7 +8,7 @@ namespace InventarServer
     /// Some Helper functions to make life easier
     /// </summary>
     class AdminTest
-    {        
+    {
         public static void CreateAdminUserDatabase()
         {
             Database db = new Database("super_admins");
@@ -19,6 +19,9 @@ namespace InventarServer
             string username = "TestUser";
             string password = "Test123!!!";
             db.AddUser(email, username, password);
+
+            User u = new User(db, username, password);
+            u.AddPermission("admin");
         }
     }
 }

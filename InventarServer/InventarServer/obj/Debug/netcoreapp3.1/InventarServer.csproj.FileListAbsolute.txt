@@ -91,3 +91,8 @@ E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\Invent
 E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.dll
 E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.pdb
 E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.genruntimeconfig.cache
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
