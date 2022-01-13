@@ -92,6 +92,9 @@ namespace InventarServer
                 return;
             MongoDatabase = Mongo().GetDatabase(Name);
             MongoDatabase.CreateCollection("users");
+            MongoDatabase.CreateCollection("items");
+            Collection c = GetCollection("items");
+            c.AddOne(ItemCollection.CreateNew("master", "admin"));
         }
 
         public ValidateError AddUser(string _email, string _username, string _password)
@@ -142,6 +145,30 @@ namespace InventarServer
                 users.Add(UserData.FromBson(bd));
             }
             return users;
+        }
+
+        public List<string> ListItemCollections(User _u)
+        {
+            List<string> collections = new List<string>();
+            foreach(var doc in GetCollection("items").GetAll())
+            {
+                ItemCollection col = new ItemCollection(this, doc);
+                if(_u.HasPermission(col.GetPermission()))
+                {
+                    collections.Add(col.GetName());
+                }
+            }
+            return collections;
+        }
+
+        public ItemCollection GetItemCollection(string _name)
+        {
+            return new ItemCollection(this, _name);
+        }
+
+        public void AddItem(Item _i)
+        {
+            GetItemCollection(_i.ItemCollectionName).AddItem(_i);
         }
     }
 }

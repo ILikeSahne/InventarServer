@@ -9,6 +9,7 @@ namespace InventarServer
 {
     public class Item   
     {
+        public string ItemCollectionName { get; set; }
         public string ID { get; set; }
         public string Anlage { get; set; }
         public string Unternummer { get; set; }
@@ -24,12 +25,14 @@ namespace InventarServer
         public string RaumBezeichnung { get; set; }
         public string Status { get; set; }
         public string Notiz { get; set; }
-        public List<Image> Bilder { get; set; }
+        public List<byte[]> Bilder { get; set; }
         public List<string> Verlauf { get; set; }
+        public string Permission { get; set; }
 
 
         public Item()
         {
+            ItemCollectionName = "master";
             ID = Guid.NewGuid().ToString();
             Anlage = "";
             Unternummer = "";
@@ -45,8 +48,9 @@ namespace InventarServer
             RaumBezeichnung = "";
             Status = "";
             Notiz = "";
-            Bilder = new List<Image>();
+            Bilder = new List<byte[]>();
             Verlauf = new List<string>();
+            Permission = "";
         }
 
         public Item(BsonDocument _doc)
@@ -73,7 +77,8 @@ namespace InventarServer
                 Raum,
                 RaumBezeichnung,
                 Status,
-                Notiz
+                Notiz,
+                Permission
             };
         }
 
@@ -90,14 +95,9 @@ namespace InventarServer
         public BsonDocument GetItemAsBson()
         {
             BsonArray images = new BsonArray();
-            foreach (Image i in Bilder)
+            foreach (byte[] b in Bilder)
             {
-                using (var _memorystream = new MemoryStream())
-                {
-                    i.Save(_memorystream, i.RawFormat);
-                    byte[] img = _memorystream.ToArray();
-                    images.Add(img);
-                }
+                images.Add(b);
             }
             BsonArray history = new BsonArray();
             foreach (string s in Verlauf)
@@ -122,13 +122,14 @@ namespace InventarServer
                 { "Status", Status },
                 { "Notiz", Notiz },
                 { "Bilder", images },
-                { "Verlauf", history }
+                { "Verlauf", history },
+                { "Permission", Permission }
             };
         }
 
         public void FromBson(BsonDocument _doc)
         {
-            Bilder = new List<Image>();
+            Bilder = new List<byte[]>();
             Verlauf = new List<string>();
             ID = _doc.GetValue("ID").AsString;
             Anlage = _doc.GetValue("Anlage").AsString;
@@ -149,14 +150,14 @@ namespace InventarServer
             foreach (var b in images)
             {
                 byte[] img = b.AsByteArray;
-                Bilder.Add(Image.FromStream(new MemoryStream(img)));
+                Bilder.Add(img);
             }
             BsonArray history = _doc.GetValue("Verlauf").AsBsonArray;
             foreach (var h in history)
             {
                 Verlauf.Add(h.AsString);
             }
-
+            Permission = _doc.GetValue("Permission").AsString;
         }
 
         public void GenerateID()

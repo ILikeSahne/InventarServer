@@ -69,11 +69,16 @@ namespace InventarServer
             }
         }
         
-        public bool HasPermission(string _perm)
+        public bool HasSpecificPermission(string _perm)
         {
-            if(Login() == LoginError.NONE)
+            if (Login() == LoginError.NONE)
                 return Permissions.Contains(_perm);
             return false;
+        }
+
+        public bool HasPermission(string _perm)
+        {
+            return HasSpecificPermission(_perm) || IsAdmin();
         }
 
         public bool IsSuperAdminUser()
@@ -85,7 +90,12 @@ namespace InventarServer
 
         public bool IsAdmin()
         {
-            return HasPermission("admin");
+            return HasSpecificPermission("admin");
+        }
+
+        public bool HasItemAddPermission()
+        {
+            return HasPermission("add_items");
         }
 
         public void AddPermission(string _permission)
@@ -151,6 +161,19 @@ namespace InventarServer
             if(byUsername != null)
                 return (byUsername, false, true);
             return (null, false, false); ;
+        }
+
+        public UserData GetUserData()
+        {
+            return UserData.FromBson(GetUser().user);
+        }
+
+        public bool Equals(User _u)
+        {
+            UserData d1 = GetUserData();
+            UserData d2 = _u.GetUserData();
+
+            return d1.Username == d2.Username;
         }
     }
 

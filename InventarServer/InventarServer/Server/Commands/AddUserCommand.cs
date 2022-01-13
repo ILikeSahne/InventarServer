@@ -4,9 +4,9 @@ using System.Text;
 
 namespace InventarServer
 {
-    class AddNewUserCommand : Command
+    class AddUserCommand : Command
     {
-        public AddNewUserCommand() : base("AddNewUser")
+        public AddUserCommand() : base("AddUser")
         { }
 
         public override void Execute(User _u, StreamHelper _helper, Client _c)

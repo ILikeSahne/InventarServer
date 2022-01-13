@@ -23,10 +23,12 @@ namespace InventarServer
             Commands.Add(new ListDatabasesCommand());
             Commands.Add(new LoginCommand());
             Commands.Add(new CreateNewDatabaseCommand());
-            Commands.Add(new AddNewUserCommand());
+            Commands.Add(new AddUserCommand());
             Commands.Add(new ListUserCommand());
             Commands.Add(new AddPermissionCommand());
             Commands.Add(new RemovePermissionCommand());
+            Commands.Add(new AddItemCommand());
+            Commands.Add(new ListItemCollectionsCommands());
         }
     }
 
@@ -65,15 +67,25 @@ namespace InventarServer
 
         }
 
-        public bool IsAdmin(User _u, StreamHelper _helper)
+        public bool SendPermissionMessage(User _u, StreamHelper _helper, bool _hasRights)
         {
-            if (!_u.IsAdmin())
+            if (!_hasRights)
             {
                 SendNoPermissionMessage(_helper);
                 return false;
             }
             SendOKMessage(_helper);
             return true;
+        }
+
+        public bool IsAdmin(User _u, StreamHelper _helper)
+        {
+            return SendPermissionMessage(_u, _helper, _u.IsAdmin());
+        }
+
+        public bool HasItemAddPermission(User _u, StreamHelper _helper)
+        {
+            return SendPermissionMessage(_u, _helper, _u.HasItemAddPermission());
         }
 
         public void SendNoPermissionMessage(StreamHelper _helper)

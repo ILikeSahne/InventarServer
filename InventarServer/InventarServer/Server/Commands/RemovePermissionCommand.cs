@@ -17,6 +17,7 @@ namespace InventarServer
             string username = _helper.ReadString();
             string permission = _helper.ReadString();
             User target = new User(_u.Database, username, "");
+            
             target.RemovePermission(permission);
         }
     }
