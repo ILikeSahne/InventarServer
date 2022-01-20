@@ -153,7 +153,9 @@ namespace InventarServer
         public (BsonDocument user, bool isEmail, bool isUsername) GetUser()
         {
             Collection userCol = Database.GetCollection("users");
-
+            if (userCol == null)
+                return (null, false, false);
+            
             var byEmail = userCol.FindOne("email", Username);
             var byUsername = userCol.FindOne("username", Username);
             if (byEmail != null)
