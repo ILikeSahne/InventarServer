@@ -78,7 +78,7 @@ namespace InventarServer
 
         public bool HasPermission(string _perm)
         {
-            return HasSpecificPermission(_perm) || IsAdmin();
+            return HasSpecificPermission(_perm) || IsAdmin() || _perm.Trim().Length == 0;
         }
 
         public bool IsSuperAdminUser()

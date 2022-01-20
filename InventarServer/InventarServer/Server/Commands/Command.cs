@@ -29,6 +29,8 @@ namespace InventarServer
             Commands.Add(new RemovePermissionCommand());
             Commands.Add(new AddItemCommand());
             Commands.Add(new ListItemCollectionsCommands());
+            Commands.Add(new AddItemCollectionCommand());
+            Commands.Add(new ListItemsCommand());
         }
     }
 
@@ -76,6 +78,11 @@ namespace InventarServer
             }
             SendOKMessage(_helper);
             return true;
+        }
+
+        public bool SendPermissionMessage(User _u, StreamHelper _helper, string _perm)
+        {
+            return SendPermissionMessage(_u, _helper, _u.HasPermission(_perm));
         }
 
         public bool IsAdmin(User _u, StreamHelper _helper)

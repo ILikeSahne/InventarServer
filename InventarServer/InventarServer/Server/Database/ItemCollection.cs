@@ -36,12 +36,22 @@ namespace InventarServer
             return Collection.GetValue("permission").AsString;
         }
 
-        public BsonArray GetItems()
+        public List<Item> GetItems(User _u)
         {
+            List<Item> items = new List<Item>();
             if (Collection == null)
-                return null;
-            return Collection.GetValue("items").AsBsonArray;
+                return items;
+
+            var bsonItems = Collection.GetValue("items").AsBsonArray;
+            foreach (BsonValue bv in bsonItems)
+            {
+                Item i = new Item(bv.AsBsonDocument);
+                if(_u.HasPermission(i.Permission))
+                    items.Add(i);
+            }
+            return items;
         }
+
 
         public void AddItem(Item _i)
         {

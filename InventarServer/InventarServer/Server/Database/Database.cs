@@ -147,6 +147,17 @@ namespace InventarServer
             return users;
         }
 
+        public List<string> ListItemCollections()
+        {
+            List<string> collections = new List<string>();
+            foreach (var doc in GetCollection("items").GetAll())
+            {
+                ItemCollection col = new ItemCollection(this, doc);
+                collections.Add(col.GetName());
+            }
+            return collections;
+        }
+
         public List<string> ListItemCollections(User _u)
         {
             List<string> collections = new List<string>();
