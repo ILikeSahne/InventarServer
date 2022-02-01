@@ -25,6 +25,7 @@ namespace InventarServer
         public string RaumBezeichnung { get; set; }
         public string Status { get; set; }
         public string Notiz { get; set; }
+        public bool BarcodeLabelOk { get; set; }
         public List<byte[]> Bilder { get; set; }
         public List<string> Verlauf { get; set; }
         public string Permission { get; set; }
@@ -48,6 +49,7 @@ namespace InventarServer
             RaumBezeichnung = "";
             Status = "";
             Notiz = "";
+            BarcodeLabelOk = true;
             Bilder = new List<byte[]>();
             Verlauf = new List<string>();
             Permission = "";
@@ -78,6 +80,7 @@ namespace InventarServer
                 RaumBezeichnung,
                 Status,
                 Notiz,
+                BarcodeLabelOk.ToString(),
                 Permission
             };
         }
@@ -121,6 +124,7 @@ namespace InventarServer
                 { "RaumBezeichnung", RaumBezeichnung },
                 { "Status", Status },
                 { "Notiz", Notiz },
+                { "BarcodeLabelOk", BarcodeLabelOk },
                 { "Bilder", images },
                 { "Verlauf", history },
                 { "Permission", Permission }
@@ -146,6 +150,7 @@ namespace InventarServer
             RaumBezeichnung = _doc.GetValue("RaumBezeichnung").AsString;
             Status = _doc.GetValue("Status").AsString;
             Notiz = _doc.GetValue("Notiz").AsString;
+            BarcodeLabelOk = _doc.GetValue("BarcodeLabelOk").AsBoolean;
             BsonArray images = _doc.GetValue("Bilder").AsBsonArray;
             foreach (var b in images)
             {

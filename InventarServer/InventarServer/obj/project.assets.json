@@ -561,20 +561,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ILike\\.nuget\\packages\\": {}
+    "C:\\Users\\ILikeSahne\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+      "projectUniqueName": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
       "projectName": "InventarServer",
-      "projectPath": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
-      "packagesPath": "C:\\Users\\ILike\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\obj\\",
+      "projectPath": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+      "packagesPath": "C:\\Users\\ILikeSahne\\.nuget\\packages\\",
+      "outputPath": "E:\\Schule\\5AHEL\\Diplom - new\\InventarServer\\InventarServer\\InventarServer\\InventarServer\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ILike\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\ILikeSahne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -623,7 +631,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
