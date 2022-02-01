@@ -36,5 +36,11 @@ namespace InventarServer
             var filter = Builders<BsonDocument>.Filter.Eq(_filterCriterium, _name);
             MongoCollection.ReplaceOne(filter, _newDoc);
         }
+
+        public void RemoveOne(string _filterCriterium, string _name)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq(_filterCriterium, _name);
+            MongoCollection.DeleteOne(filter);
+        }
     }
 }
