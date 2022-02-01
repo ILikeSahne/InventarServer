@@ -71,5 +71,29 @@ namespace InventarServer
             doc.Add("permission", _perm);
             return doc;
         }
+
+        public bool RemoveItem(string _itemCollection, string _id, User _u)
+        {
+            bool found = false;
+            if (Collection == null)
+                return false;
+            var items = Collection.GetValue("items").AsBsonArray;
+            foreach(var i in items)
+            {
+                if(i["ID"] == _id)
+                {
+                    if (!_u.HasPermission(i["Permission"].AsString))
+                        return false;
+                    items.Remove(i);
+                    found = true;
+                    break;
+                }
+            }
+
+            if(found)
+                Database.GetCollection("items").UpdateEntry("name", _itemCollection, Collection);
+
+            return found;
+        }
     }
 }
