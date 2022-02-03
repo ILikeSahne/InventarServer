@@ -18,6 +18,7 @@ namespace InventarServer
         /// </summary>
         public static void Main(string[] args)
         {
+            ExcelHelper.Setup();
             Instance = new InventarServerMain();
             // AdminTest.DeleteItem("TestDB", "TestUser2", "Test123!!!", "Master");
             AdminTest.CreateAdminUserDatabase();

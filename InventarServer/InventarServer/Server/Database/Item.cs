@@ -11,6 +11,7 @@ namespace InventarServer
     {
         public string ItemCollectionName { get; set; }
         public string ID { get; set; }
+
         public string Anlage { get; set; }
         public string Unternummer { get; set; }
         public string AktuelleInventarNummer { get; set; }
@@ -23,6 +24,7 @@ namespace InventarServer
         public string KfzKennzeichen { get; set; }
         public string Raum { get; set; }
         public string RaumBezeichnung { get; set; }
+
         public string Status { get; set; }
         public string Notiz { get; set; }
         public bool BarcodeLabelOk { get; set; }
@@ -59,6 +61,11 @@ namespace InventarServer
         {
             FromBson(_doc);
             GenerateID();
+        }
+
+        public Item(object[] data) : this()
+        {
+            FromExcelCol(data);
         }
 
         public string[] ToStrings()
@@ -163,6 +170,22 @@ namespace InventarServer
                 Verlauf.Add(h.AsString);
             }
             Permission = _doc.GetValue("Permission").AsString;
+        }
+
+        public void FromExcelCol(object[] data)
+        {
+            Anlage = data[0].ToString();
+            Unternummer = data[1].ToString();
+            AktuelleInventarNummer = data[2].ToString();
+            AktivierungAm = DateTime.Parse(data[3].ToString());
+            Anlagenbezeichnung = data[4].ToString();
+            Serialnummer = data[5].ToString();
+            AnschaffungsWert = double.Parse(data[6].ToString());
+            BuchWert = double.Parse(data[7].ToString());
+            Waehrung = data[8].ToString();
+            KfzKennzeichen = data[9].ToString();
+            Raum = data[10].ToString();
+            RaumBezeichnung = data[11].ToString();
         }
 
         public void LoadImages(BsonDocument _doc)

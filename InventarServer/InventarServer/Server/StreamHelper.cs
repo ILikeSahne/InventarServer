@@ -79,7 +79,8 @@ namespace InventarServer
         /// <returns>The read int</returns>
         public int ReadInt()
         {
-            return BitConverter.ToInt32(ReadByteArray(), 0);
+            byte[] array = ReadByteArray();
+            return BitConverter.ToInt32(array, 0);
         }
     }
 }
