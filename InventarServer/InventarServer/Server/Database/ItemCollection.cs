@@ -95,5 +95,10 @@ namespace InventarServer
 
             return found;
         }
+
+        public void RemoveCollection(string _itemCollection)
+        {
+            Database.GetCollection("items").RemoveOne("name", _itemCollection);
+        }
     }
 }

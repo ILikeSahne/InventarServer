@@ -4,16 +4,15 @@ using System.Text;
 
 namespace InventarServer
 {
-    class RemoveItemCommand : Command
+    class RemoveItemCollectionCommand : Command
     {
-        public RemoveItemCommand() : base("RemoveItem")
+        public RemoveItemCollectionCommand() : base("RemoveItemCollection")
         { }
 
         public override void Execute(User _u, StreamHelper _helper, Client _c)
         {
             string collectionName = _helper.ReadString();
-            string id = _helper.ReadString();
-
+            
             ItemCollection c = _u.Database.GetItemCollection(collectionName);
 
             if (c == null)
@@ -22,14 +21,10 @@ namespace InventarServer
                 return;
             }
 
-            if (!SendPermissionMessage(_u, _helper, c.GetPermission()))
+            if (!IsAdmin(_u, _helper))
                 return;
 
-            if (!c.RemoveItem(collectionName, id, _u))
-            {
-                SendNoPermissionMessage(_helper);
-                return;
-            }
+            c.RemoveCollection(collectionName);
 
             SendOKMessage(_helper);
         }
