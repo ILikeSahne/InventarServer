@@ -52,6 +52,23 @@ namespace InventarServer
             return items;
         }
 
+        public Item GetItem(User _u, string _id)
+        {
+            if (Collection == null)
+                return null;
+
+            var bsonItems = Collection.GetValue("items").AsBsonArray;
+            foreach (BsonValue bv in bsonItems)
+            {
+                Item i = new Item(bv.AsBsonDocument);
+                if (_u.HasPermission(i.Permission))
+                {
+                    i.LoadImages(bv.AsBsonDocument);
+                    return i;
+                }
+            }
+            return null;
+        }
 
         public void AddItem(Item _i)
         {
@@ -98,6 +115,8 @@ namespace InventarServer
 
         public void RemoveCollection(string _itemCollection)
         {
+            if (Collection == null)
+                return;
             Database.GetCollection("items").RemoveOne("name", _itemCollection);
         }
     }

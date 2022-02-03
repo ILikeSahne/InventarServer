@@ -133,7 +133,7 @@ namespace InventarServer
 
         public void FromBson(BsonDocument _doc)
         {
-            Bilder = new List<byte[]>();
+            // Bilder = new List<byte[]>();
             Verlauf = new List<string>();
             ID = _doc.GetValue("ID").AsString;
             Anlage = _doc.GetValue("Anlage").AsString;
@@ -151,18 +151,29 @@ namespace InventarServer
             Status = _doc.GetValue("Status").AsString;
             Notiz = _doc.GetValue("Notiz").AsString;
             BarcodeLabelOk = _doc.GetValue("BarcodeLabelOk").AsBoolean;
-            BsonArray images = _doc.GetValue("Bilder").AsBsonArray;
+            /*BsonArray images = _doc.GetValue("Bilder").AsBsonArray;
             foreach (var b in images)
             {
                 byte[] img = b.AsByteArray;
                 Bilder.Add(img);
-            }
+            }*/
             BsonArray history = _doc.GetValue("Verlauf").AsBsonArray;
             foreach (var h in history)
             {
                 Verlauf.Add(h.AsString);
             }
             Permission = _doc.GetValue("Permission").AsString;
+        }
+
+        public void LoadImages(BsonDocument _doc)
+        {
+            Bilder = new List<byte[]>();
+            BsonArray images = _doc.GetValue("Bilder").AsBsonArray;
+            foreach (var b in images)
+            {
+                byte[] img = b.AsByteArray;
+                Bilder.Add(img);
+            }
         }
 
         public void GenerateID()

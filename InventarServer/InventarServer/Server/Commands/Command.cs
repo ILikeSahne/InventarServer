@@ -33,6 +33,7 @@ namespace InventarServer
             Commands.Add(new ListItemsCommand());
             Commands.Add(new RemoveItemCommand());
             Commands.Add(new RemoveItemCollectionCommand());
+            Commands.Add(new ListItemImagesCommand());
         }
     }
 
