@@ -46,6 +46,7 @@ namespace InventarServer
             cmdManager = new CommandManager();
             IPAddress addr = Dns.GetHostAddresses(_domain)[0];
             server = new TcpListener(addr, _port);
+            server.Server.NoDelay = true;
             server.Start();
             serverThread = new Thread(ServerRoutine);
             serverThread.Start();

@@ -1,8 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using InventarAPI;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace InventarServer
@@ -35,7 +37,7 @@ namespace InventarServer
 
         public Item()
         {
-            ItemCollectionName = "master";
+            ItemCollectionName = "";
             ID = Guid.NewGuid().ToString();
             Anlage = "";
             Unternummer = "";
@@ -57,7 +59,7 @@ namespace InventarServer
             Permission = "";
         }
 
-        public Item(BsonDocument _doc)
+        public Item(BsonDocument _doc) : this()
         {
             FromBson(_doc);
             GenerateID();
@@ -203,6 +205,38 @@ namespace InventarServer
         {
             if (string.IsNullOrWhiteSpace(ID))
                 ID = Guid.NewGuid().ToString();
+        }
+
+        public byte[] ToByteArray()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (var stream = new MemoryStream())
+            {
+                bf.Serialize(stream, ItemCollectionName);
+                bf.Serialize(stream, ID);
+
+                bf.Serialize(stream, Anlage);
+                bf.Serialize(stream, Unternummer);
+                bf.Serialize(stream, AktuelleInventarNummer);
+                bf.Serialize(stream, AktivierungAm);
+                bf.Serialize(stream, Anlagenbezeichnung);
+                bf.Serialize(stream, Serialnummer);
+                bf.Serialize(stream, AnschaffungsWert);
+                bf.Serialize(stream, BuchWert);
+                bf.Serialize(stream, Waehrung);
+                bf.Serialize(stream, KfzKennzeichen);
+                bf.Serialize(stream, Raum);
+                bf.Serialize(stream, RaumBezeichnung);
+
+                bf.Serialize(stream, Status);
+                bf.Serialize(stream, Notiz);
+                bf.Serialize(stream, BarcodeLabelOk);
+                bf.Serialize(stream, Bilder);
+                bf.Serialize(stream, Verlauf);
+                bf.Serialize(stream, Permission);
+
+                return stream.ToArray();
+            }
         }
     }
 }

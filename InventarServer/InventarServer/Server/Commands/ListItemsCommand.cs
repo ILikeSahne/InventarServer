@@ -23,8 +23,8 @@ namespace InventarServer
             _helper.SendInt(items.Count);
             foreach (Item i in items)
             {
-                string json = JsonSerializer.Serialize(i);
-                _helper.SendString(json);
+                //_helper.SendByteArray(i.ToByteArray());
+                _helper.SendString(JsonSerializer.Serialize(i));
             }
         }
     }
