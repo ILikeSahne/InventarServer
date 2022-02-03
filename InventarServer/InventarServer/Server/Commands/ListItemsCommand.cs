@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 
@@ -20,12 +22,27 @@ namespace InventarServer
 
             var items = itemCollection.GetItems(_u);
 
-            _helper.SendInt(items.Count);
-            foreach (Item i in items)
-            {
-                //_helper.SendByteArray(i.ToByteArray());
-                _helper.SendString(JsonSerializer.Serialize(i));
-            }
+            string json = JsonSerializer.Serialize(items);
+            _helper.SendByteArray(Zip(json));
         }
+
+
+        public static byte[] Zip(string uncompressed)
+        {
+            byte[] ret;
+            using (var outputMemory = new MemoryStream())
+            {
+                using (var gz = new GZipStream(outputMemory, CompressionLevel.Optimal))
+                {
+                    using (var sw = new StreamWriter(gz, Encoding.UTF8))
+                    {
+                        sw.Write(uncompressed);
+                    }
+                }
+                ret = outputMemory.ToArray();
+            }
+            return ret;
+        }
+
     }
 }
