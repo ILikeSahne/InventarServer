@@ -102,3 +102,9 @@ E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\Invent
 E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\osx\native\libzstd.dylib
 E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\ExcelDataReader.dll
 E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\ExcelDataReader.DataSet.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\ExcelDataReader.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\ExcelDataReader.DataSet.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\linux\native\libsnappy64.so
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\linux\native\libzstd.so
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\osx\native\libsnappy64.dylib
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\osx\native\libzstd.dylib

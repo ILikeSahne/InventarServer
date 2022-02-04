@@ -28,7 +28,7 @@ namespace InventarServer
             if (!SendPermissionMessage(_u, _helper, c.GetPermission()))
                 return;
 
-            string filename = DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':', '_') + ".xlsl";
+            string filename = DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':', '_') + ".xlsx";
 
             byte[] data = _helper.ReadByteArray();
             File.WriteAllBytes(filename, data);
