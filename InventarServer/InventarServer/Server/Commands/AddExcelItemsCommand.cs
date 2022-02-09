@@ -28,7 +28,10 @@ namespace InventarServer
             if (!SendPermissionMessage(_u, _helper, c.GetPermission()))
                 return;
 
-            string filename = DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':', '_') + ".xlsx";
+            string filename = "excel/" + DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':', '_') + ".xlsx";
+
+            if (!Directory.Exists("excel"))
+               Directory.CreateDirectory("excel");
 
             byte[] data = _helper.ReadByteArray();
             File.WriteAllBytes(filename, data);
