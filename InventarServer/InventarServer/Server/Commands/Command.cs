@@ -35,6 +35,7 @@ namespace InventarServer
             Commands.Add(new RemoveItemCollectionCommand());
             Commands.Add(new ListItemImagesCommand());
             Commands.Add(new AddExcelItemsCommand());
+            Commands.Add(new CopyItemCollectionCommand());
         }
     }
 

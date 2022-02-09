@@ -89,6 +89,15 @@ namespace InventarServer
             return doc;
         }
 
+
+        public BsonDocument Clone(string _newName, string _perm)
+        {
+            BsonDocument doc = CreateNew(_newName, _perm);
+            doc["items"] = Collection.GetValue("items").AsBsonArray;
+            return doc;
+        }
+
+
         public bool RemoveItem(string _itemCollection, string _id, User _u)
         {
             bool found = false;
