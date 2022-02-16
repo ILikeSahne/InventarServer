@@ -61,6 +61,8 @@ namespace InventarServer
             foreach (BsonValue bv in bsonItems)
             {
                 Item i = new Item(bv.AsBsonDocument);
+                if (i.ID != _id)
+                    continue;
                 if (_u.HasPermission(i.Permission))
                 {
                     i.LoadImages(bv.AsBsonDocument);

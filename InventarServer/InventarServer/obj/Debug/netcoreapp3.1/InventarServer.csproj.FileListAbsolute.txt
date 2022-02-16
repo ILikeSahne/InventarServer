@@ -108,3 +108,5 @@ C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServe
 C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\linux\native\libzstd.so
 C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\osx\native\libsnappy64.dylib
 C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\runtimes\osx\native\libzstd.dylib
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\ILike\Desktop\Diplom\Server\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\itextsharp.dll
