@@ -25,24 +25,5 @@ namespace InventarServer
             string json = JsonSerializer.Serialize(items);
             _helper.SendByteArray(Zip(json));
         }
-
-
-        public static byte[] Zip(string uncompressed)
-        {
-            byte[] ret;
-            using (var outputMemory = new MemoryStream())
-            {
-                using (var gz = new GZipStream(outputMemory, CompressionLevel.Optimal))
-                {
-                    using (var sw = new StreamWriter(gz, Encoding.UTF8))
-                    {
-                        sw.Write(uncompressed);
-                    }
-                }
-                ret = outputMemory.ToArray();
-            }
-            return ret;
-        }
-
     }
 }

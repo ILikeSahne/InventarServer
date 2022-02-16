@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.IO;
-using iTextSharp.text.pdf;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
 
 namespace InventarServer
 {
     class GeneratePDFCommand : Command
     {
-        private Dictionary<DocumentType, Func<Image, Image>> documentsTypeFunctions;
+        private Dictionary<DocumentType, Func<Image, List<Image>>> documentsTypeFunctions;
 
         public GeneratePDFCommand() : base("GeneratePDF")
         {
-            documentsTypeFunctions = new Dictionary<DocumentType, Func<Image, Image>>();
+            documentsTypeFunctions = new Dictionary<DocumentType, Func<Image, List<Image>>>();
             documentsTypeFunctions.Add(DocumentType.ABSCHREIBUNG, generateAbschreibungsPDF);
         }
 
@@ -31,35 +32,56 @@ namespace InventarServer
                 return;
             }
 
-            SendOKMessage(_helper); 
+            SendOKMessage(_helper);
 
             Image img = Image.FromFile("DocumentTypeImages/" + d.ToString() + ".png");
 
-            img = documentsTypeFunctions[d](img);
+            List<Image> images = documentsTypeFunctions[d](img);
 
-            byte[] pdf = convertToPDF(img);
+            byte[] pdf = convertToPDF2(images);
+
             _helper.SendByteArray(pdf);
+
+            img.Dispose();
+            foreach (Image i in images)
+                i.Dispose();
         }
 
-        private Image generateAbschreibungsPDF(Image _img)
+        private List<Image> generateAbschreibungsPDF(Image _img)
         {
-            return _img;
+            List<Image> images = new List<Image>();
+            for(int i = 0; i < 10; i++)
+                images.Add(_img);
+            return images;
         }
 
-        private byte[] convertToPDF(Image _img)
+        private byte[] convertToPDF2(List<Image> _images)
         {
+            if (!Directory.Exists("pdfs"))
+                Directory.CreateDirectory("pdfs");
             string filename = "pdfs/" + DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':', '_') + ".pdf";
 
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
-            using (var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
+            PdfDocument document = new PdfDocument();
+
+            foreach (Image i in _images)
             {
-                PdfWriter.GetInstance(document, stream);
-                document.Open();
-                document.Add(iTextSharp.text.Image.GetInstance(_img, iTextSharp.text.BaseColor.WHITE));
-                document.Close();
+                PdfPage page = document.AddPage();
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+                DrawImage(gfx, i, page);
             }
+            document.Save(filename);
 
             return File.ReadAllBytes(filename);
+        }
+
+        private void DrawImage(XGraphics _gfx, Image _img, PdfPage _page)
+        {
+            MemoryStream strm = new MemoryStream();
+            _img.Save(strm, System.Drawing.Imaging.ImageFormat.Png);
+
+            XImage xImg = XImage.FromStream(strm);
+
+            _gfx.DrawImage(xImg, 0, 0, _page.Width, _page.Height);
         }
 
         private DocumentType fromString(string _s)

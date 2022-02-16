@@ -52,13 +52,13 @@
               "target": "Package",
               "version": "[2.14.1, )"
             },
+            "PdfSharp": {
+              "target": "Package",
+              "version": "[1.50.5147, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[6.0.0, )"
-            },
-            "iTextSharp": {
-              "target": "Package",
-              "version": "[5.5.13.2, )"
             }
           },
           "imports": [

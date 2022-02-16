@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Text;
 
 namespace InventarServer
@@ -109,6 +111,39 @@ namespace InventarServer
         public void SendOKMessage(StreamHelper _helper)
         {
             _helper.SendString("OK");
+        }
+
+        public static byte[] Zip(string uncompressed)
+        {
+            byte[] ret;
+            using (var outputMemory = new MemoryStream())
+            {
+                using (var gz = new GZipStream(outputMemory, CompressionLevel.Optimal))
+                {
+                    using (var sw = new StreamWriter(gz, Encoding.UTF8))
+                    {
+                        sw.Write(uncompressed);
+                    }
+                }
+                ret = outputMemory.ToArray();
+            }
+            return ret;
+        }
+
+        public static string Unzip(byte[] compressed)
+        {
+            string ret = null;
+            using (var inputMemory = new MemoryStream(compressed))
+            {
+                using (var gz = new GZipStream(inputMemory, CompressionMode.Decompress))
+                {
+                    using (var sr = new StreamReader(gz, Encoding.UTF8))
+                    {
+                        ret = sr.ReadToEnd();
+                    }
+                }
+            }
+            return ret;
         }
     }
 }
