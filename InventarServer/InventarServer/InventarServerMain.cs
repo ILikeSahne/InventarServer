@@ -1,6 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -21,7 +24,16 @@ namespace InventarServer
             ExcelHelper.Setup();
             Instance = new InventarServerMain();
             // AdminTest.DeleteItem("TestDB", "TestUser2", "Test123!!!", "Master");
-            AdminTest.CreateAdminUserDatabase();
+            // AdminTest.CreateAdminUserDatabase();
+            /*List<Item> items = new List<Item>();
+            Item i = new Item();
+            i.Anlage = "312002794672";
+            i.Anlagenbezeichnung = "Labortisch für CAN-System";
+            i.BuchWert = 0;
+            for(int j = 0; j < 10; j++)
+                items.Add(i);*/
+            //byte[] pdf = GeneratePDFCommand.generateAbschreibungsPDF("C:/Users/ILike/Desktop/Diplom/Server/InventarServer/InventarServer/InventarServer/bin/Debug/netcoreapp3.1/DocumentTypes/ABSCHREIBUNG.pdf", items);
+            //File.WriteAllBytes("C:/Users/ILike/Downloads/test.pdf", pdf);
         }
 
         /// <summary>
