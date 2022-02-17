@@ -104,7 +104,7 @@ namespace InventarServer
                             contentByte.SetFontAndSize(baseFont, 10);
                             contentByte.ShowTextAligned(PdfContentByte.ALIGN_CENTER, it.BuchWert.ToString("0.##") + it.Waehrung, 420, y, 0);
                             string x = abschreibungsType;
-                            if (it.BuchWert < 0.01)
+                            if (it.BuchWert < 0.01 && x == "")
                                 x = "V";
                             contentByte.ShowTextAligned(PdfContentByte.ALIGN_CENTER, x, 503, y, 0);
                             y -= 28.1f;
