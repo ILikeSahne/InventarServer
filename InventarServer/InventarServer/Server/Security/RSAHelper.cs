@@ -55,7 +55,7 @@ namespace InventarServer
             for (int i = 0; i < response.Length; i++)
             {
                 if (response[i] != data[i] * 4)
-                    throw new Error("Wrong RSA Header");
+                    throw new Exception("Wrong RSA Header");
             }
         }
 
@@ -82,7 +82,7 @@ namespace InventarServer
             for (int i = 0; i < response.Length; i++)
             {
                 if (response[i] != i * 4)
-                    throw new Error("Wrong RSA Header");
+                    throw new Exception("Wrong RSA Header");
                 response[i] *= 4;
             }
             //Write response
