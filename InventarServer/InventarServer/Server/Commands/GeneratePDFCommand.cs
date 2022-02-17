@@ -11,11 +11,11 @@ namespace InventarServer
 {
     class GeneratePDFCommand : Command
     {
-        private Dictionary<DocumentType, Func<string, List<Item>, byte[]>> documentsTypeFunctions;
+        private Dictionary<DocumentType, Func<string, List<Item>, StreamHelper, byte[]>> documentsTypeFunctions;
 
         public GeneratePDFCommand() : base("GeneratePDF")
         {
-            documentsTypeFunctions = new Dictionary<DocumentType, Func<string, List<Item>, byte[]>>();
+            documentsTypeFunctions = new Dictionary<DocumentType, Func<string, List<Item>, StreamHelper, byte[]>>();
             documentsTypeFunctions.Add(DocumentType.ABSCHREIBUNG, generateAbschreibungsPDF);
             if (!Directory.Exists("pdf"))
                 Directory.CreateDirectory("pdf");
@@ -63,13 +63,15 @@ namespace InventarServer
 
             string filename = "DocumentTypes/" + d.ToString() + ".pdf";
 
-            byte[] pdf = documentsTypeFunctions[d](filename, items);
+            byte[] pdf = documentsTypeFunctions[d](filename, items, _helper);
 
             _helper.SendByteArray(pdf);
-        }
+        }   
 
-        public byte[] generateAbschreibungsPDF(string _filename, List<Item> _items)
+        public byte[] generateAbschreibungsPDF(string _filename, List<Item> _items, StreamHelper _helper)
         {
+            string abschreibungsType = _helper.ReadString();
+
             string newFileName = "pdf/" + DateTime.Now.ToString().Replace('/', '_').Replace(' ', '_').Replace(':', '_') + ".pdf";
 
             using (var reader = new PdfReader(_filename))
@@ -101,8 +103,10 @@ namespace InventarServer
                             contentByte.ShowTextAligned(PdfContentByte.ALIGN_CENTER, it.Anlagenbezeichnung, 284, y + 1.5f, 0);
                             contentByte.SetFontAndSize(baseFont, 10);
                             contentByte.ShowTextAligned(PdfContentByte.ALIGN_CENTER, it.BuchWert.ToString("0.##") + it.Waehrung, 420, y, 0);
-                            if(it.BuchWert < 0.01)
-                                contentByte.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "V", 503, y, 0);
+                            string x = abschreibungsType;
+                            if (it.BuchWert < 0.01)
+                                x = "V";
+                            contentByte.ShowTextAligned(PdfContentByte.ALIGN_CENTER, x, 503, y, 0);
                             y -= 28.1f;
                         }
 
