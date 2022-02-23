@@ -205,13 +205,5 @@ namespace InventarServer
             }
             return data;
         }
-
-    }
-
-    enum RSAError
-    {
-        NO_ERROR,
-        CONNECTION_ERROR,
-        RESPONSE_ERROR
-    }
+    }  
 }
