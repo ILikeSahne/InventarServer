@@ -162,20 +162,12 @@ namespace InventarServer
                 return (byEmail, true, false);
             if(byUsername != null)
                 return (byUsername, false, true);
-            return (null, false, false); ;
+            return (null, false, false);
         }
 
         public UserData GetUserData()
         {
             return UserData.FromBson(GetUser().user);
-        }
-
-        public bool Equals(User _u)
-        {
-            UserData d1 = GetUserData();
-            UserData d2 = _u.GetUserData();
-
-            return d1.Username == d2.Username;
         }
     }
 
