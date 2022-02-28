@@ -1,21 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {}
+    "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {
+    "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+        "projectUniqueName": "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
         "projectName": "InventarServer",
-        "projectPath": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
-        "packagesPath": "C:\\Users\\ILike\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\obj\\",
+        "projectPath": "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+        "packagesPath": "C:\\Users\\lehne\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ILike\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lehne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -76,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
