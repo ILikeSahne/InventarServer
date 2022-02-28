@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {}
+    "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {
+    "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+        "projectUniqueName": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
         "projectName": "InventarServer",
-        "projectPath": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+        "projectPath": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
         "packagesPath": "C:\\Users\\ILike\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ILike\\Desktop\\Diplom\\Server\\InventarServer\\InventarServer\\InventarServer\\obj\\",
+        "outputPath": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ILike\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -76,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

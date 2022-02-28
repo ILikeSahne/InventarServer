@@ -32,7 +32,7 @@ namespace InventarServer
         public string GetPermission()
         {
             if (Collection == null)
-                return null;
+                return "";
             return Collection.GetValue("permission").AsString;
         }
 
