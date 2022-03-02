@@ -24,6 +24,8 @@ namespace InventarServer
         public LoginError Login(User _u)
         {
             Collection userCollection = GetCollection("users");
+            if (userCollection == null)
+                return LoginError.WRONG_USERNAME;
 
             BsonDocument foundUser = userCollection.FindOne("username", _u.Username);
             if (foundUser == null)
