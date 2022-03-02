@@ -113,7 +113,7 @@ namespace InventarServer
             _helper.SendString("OK");
         }
 
-        public static byte[] Zip(string uncompressed)
+        public static byte[] Zip(string _uncompressed)
         {
             byte[] ret;
             using (var outputMemory = new MemoryStream())
@@ -122,7 +122,7 @@ namespace InventarServer
                 {
                     using (var sw = new StreamWriter(gz, Encoding.UTF8))
                     {
-                        sw.Write(uncompressed);
+                        sw.Write(_uncompressed);
                     }
                 }
                 ret = outputMemory.ToArray();
@@ -130,10 +130,10 @@ namespace InventarServer
             return ret;
         }
 
-        public static string Unzip(byte[] compressed)
+        public static string Unzip(byte[] _compressed)
         {
             string ret = null;
-            using (var inputMemory = new MemoryStream(compressed))
+            using (var inputMemory = new MemoryStream(_compressed))
             {
                 using (var gz = new GZipStream(inputMemory, CompressionMode.Decompress))
                 {

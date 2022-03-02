@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "BouncyCastle/1.8.6.1": {
+      "BouncyCastle/1.8.9": {
         "type": "package",
         "compile": {
           "lib/BouncyCastle.Crypto.dll": {}
@@ -41,10 +41,10 @@
           "lib/netstandard2.0/ExcelDataReader.DataSet.dll": {}
         }
       },
-      "iTextSharp/5.5.13.2": {
+      "iTextSharp/5.5.13.3": {
         "type": "package",
         "dependencies": {
-          "BouncyCastle": "1.8.6.1"
+          "BouncyCastle": "1.8.9"
         },
         "compile": {
           "lib/itextsharp.dll": {}
@@ -241,15 +241,15 @@
     }
   },
   "libraries": {
-    "BouncyCastle/1.8.6.1": {
-      "sha512": "rkqpuKmJkdcfTMBkIj1b5nMdBAWKwAyh+I/BQYeqqSD2jkIlhwc9qBNKmSbnpmmm5c29qHZGLpvBSTNWvDLtQA==",
+    "BouncyCastle/1.8.9": {
+      "sha512": "axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg==",
       "type": "package",
-      "path": "bouncycastle/1.8.6.1",
+      "path": "bouncycastle/1.8.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "bouncycastle.1.8.6.1.nupkg.sha512",
+        "bouncycastle.1.8.9.nupkg.sha512",
         "bouncycastle.nuspec",
         "lib/BouncyCastle.Crypto.dll"
       ]
@@ -319,16 +319,16 @@
         "lib/netstandard2.0/ExcelDataReader.DataSet.xml"
       ]
     },
-    "iTextSharp/5.5.13.2": {
-      "sha512": "8m9oT1nh9F4Z1tzWUey/8lEzZtMGFCDXQY5+8/SSmPgUWAAAWniRo8pimKUZyteNqJr5vtFBxjAhRwLxG7Q0zQ==",
+    "iTextSharp/5.5.13.3": {
+      "sha512": "vtnMhTEJdZFCkLqaQLjD8aqTBIVKHPrSFuSXnxbLEJlvE/j/l88fvG9wtsejXTmhtErMo0lA9T2LdfdfbwplYw==",
       "type": "package",
-      "path": "itextsharp/5.5.13.2",
+      "path": "itextsharp/5.5.13.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "gnu-agpl-v3.0.md",
-        "itextsharp.5.5.13.2.nupkg.sha512",
+        "itextsharp.5.5.13.3.nupkg.sha512",
         "itextsharp.nuspec",
         "lib/iTextSharp.xml",
         "lib/itextsharp.dll",
@@ -614,34 +614,24 @@
       "ExcelDataReader.DataSet >= 3.6.0",
       "MongoDB.Driver >= 2.14.1",
       "System.Drawing.Common >= 6.0.0",
-      "iTextSharp >= 5.5.13.2"
+      "iTextSharp >= 5.5.13.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lehne\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\ILike\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+      "projectUniqueName": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
       "projectName": "InventarServer",
-      "projectPath": "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
-      "packagesPath": "C:\\Users\\lehne\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lehne\\Documents\\Diplomarbeit\\InventarServer\\InventarServer\\InventarServer\\obj\\",
+      "projectPath": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\InventarServer.csproj",
+      "packagesPath": "C:\\Users\\ILike\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ILike\\Desktop\\Diplomarbeit\\Server\\InventarServer\\InventarServer\\InventarServer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\lehne\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\ILike\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -684,7 +674,7 @@
           },
           "iTextSharp": {
             "target": "Package",
-            "version": "[5.5.13.2, )"
+            "version": "[5.5.13.3, )"
           }
         },
         "imports": [
@@ -702,7 +692,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -711,7 +701,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Das Paket \"BouncyCastle 1.8.6.1\" wurde nicht mit dem Projektzielframework \".NETCoreApp,Version=v3.1\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
+      "message": "Package 'BouncyCastle 1.8.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "BouncyCastle",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
@@ -721,7 +711,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Das Paket \"iTextSharp 5.5.13.2\" wurde nicht mit dem Projektzielframework \".NETCoreApp,Version=v3.1\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
+      "message": "Package 'iTextSharp 5.5.13.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "iTextSharp",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
