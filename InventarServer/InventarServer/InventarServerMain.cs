@@ -24,7 +24,7 @@ namespace InventarServer
             ExcelHelper.Setup();
             Instance = new InventarServerMain();
             // AdminTest.DeleteItem("TestDB", "TestUser2", "Test123!!!", "Master");
-            // AdminTest.CreateAdminUserDatabase();
+            AdminTest.CreateAdminUserDatabase();
             /*List<Item> items = new List<Item>();
             Item i = new Item();
             i.Anlage = "312002794672";
