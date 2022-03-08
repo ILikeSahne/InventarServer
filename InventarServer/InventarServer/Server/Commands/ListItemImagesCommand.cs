@@ -33,6 +33,9 @@ namespace InventarServer
                 return;
             }
 
+            if (!SendPermissionMessage(_u, _helper, i.Permission))
+                return;
+
             SendOKMessage(_helper);
 
             List<byte[]> images = i.Bilder;

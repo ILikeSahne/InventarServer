@@ -14,7 +14,6 @@ namespace InventarServer
 
         public override void Execute(User _u, StreamHelper _helper, Client _c)
         {
-            var now = DateTime.Now;
             string name = _helper.ReadString();
             var itemCollection = _u.Database.GetItemCollection(name);
 
@@ -25,7 +24,6 @@ namespace InventarServer
 
             string json = JsonSerializer.Serialize(items);
             _helper.SendByteArray(Zip(json));
-            Console.WriteLine(DateTime.Now - now);
         }
     }
 }
