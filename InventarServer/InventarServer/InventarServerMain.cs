@@ -1,11 +1,6 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace InventarServer
 {
@@ -61,7 +56,29 @@ namespace InventarServer
         public InventarServerMain()
         {
             MongoDB = new MongoClient("mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb");
-            Server = new Server(10000);
+            string ip = ReadIP();
+            if (ip != null)
+            {
+                Server.WriteLine("Server starting on IP: {0}", ip);
+                Server = new Server(ip, 10000);
+            }
+            else
+            {
+                Server.WriteLine("Server starting locally!");
+                Server = new Server(10000);
+            }
+        }
+
+        private string ReadIP()
+        {
+            try
+            {
+                return File.ReadAllLines("ip.txt")[0];
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

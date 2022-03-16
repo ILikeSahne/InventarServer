@@ -73,9 +73,9 @@ namespace InventarServer
         /// <param name="_args">Parameters of the message</param>
         public static void WriteLine(string _s, params object[] _args)
         {
-            #if DEBUG
+            //#if DEBUG
                 Console.WriteLine(_s, _args);
-            #endif
+            //#endif
         }
 
     }
