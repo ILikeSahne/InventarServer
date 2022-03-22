@@ -12,6 +12,8 @@ namespace InventarServer
         public static void Setup()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            if (!Directory.Exists("excel"))
+                Directory.CreateDirectory("excel");
         }
 
         public static List<Item> LoadExcel(string _name, string _filename)
