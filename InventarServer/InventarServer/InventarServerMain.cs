@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.IO;
+using System.Net;
 
 namespace InventarServer
 {
@@ -50,34 +51,41 @@ namespace InventarServer
         /// </summary>
         public MongoClient MongoDB { get; }
 
+        public string IP { get; private set; }
+        public int Port { get; private set; }
+
         /// <summary>
         /// Starts the database connection and the server
         /// </summary>
         public InventarServerMain()
         {
             MongoDB = new MongoClient("mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb");
-            string ip = ReadIP();
-            if (ip != null)
-            {
-                Server.WriteLine("Server starting on IP: {0}", ip);
-                Server = new Server(ip, 10000);
-            }
-            else
-            {
-                Server.WriteLine("Server starting locally!");
-                Server = new Server(10000);
-            }
+            LoadIpAndPort();
+            Server.WriteLine("Server starting on IP: {0}, on Port: {1}", IP, Port);
+            Server = new Server(IP, Port);
         }
 
-        private string ReadIP()
+        public void LoadIpAndPort()
         {
-            try
+            string filename = "settings.txt";
+            if (!File.Exists(filename))
+                File.WriteAllText(filename, "IP: 127.0.0.1\nPort: 10000");
+            string[] lines = File.ReadAllLines(filename);
+            foreach (string line in lines)
             {
-                return File.ReadAllLines("ip.txt")[0];
-            }
-            catch (Exception e)
-            {
-                return null;
+                string s = line.Trim();
+                if (s.StartsWith("IP: "))
+                {
+                    int len = "IP: ".Length;
+                    s = s.Substring(len, s.Length - len);
+                    IP = s;
+                }
+                if (s.StartsWith("Port: "))
+                {
+                    int len = "Port: ".Length;
+                    s = s.Substring(len, s.Length - len);
+                    Port = int.Parse(s);
+                }
             }
         }
     }

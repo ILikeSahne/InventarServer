@@ -191,3 +191,5 @@ C:\Users\ILike\Desktop\Diplomarbeit\Server\InventarServer\InventarServer\Inventa
 C:\Users\ILike\Desktop\Diplomarbeit\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.dll
 C:\Users\ILike\Desktop\Diplomarbeit\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.pdb
 C:\Users\ILike\Desktop\Diplomarbeit\Server\InventarServer\InventarServer\InventarServer\obj\Debug\netcoreapp3.1\InventarServer.genruntimeconfig.cache
+E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+E:\Schule\5AHEL\Diplom - new\InventarServer\InventarServer\InventarServer\InventarServer\bin\Debug\netcoreapp3.1\itextsharp.dll
