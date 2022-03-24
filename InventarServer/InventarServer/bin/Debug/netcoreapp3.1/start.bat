@@ -1,0 +1,2 @@
+InventarServer.exe
+pause
